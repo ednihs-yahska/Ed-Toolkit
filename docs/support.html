@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SEO and language links -->
+    <link rel="alternate" hreflang="en" href="support.html">
+    <link rel="alternate" hreflang="es" href="es/support.html">
+    <link rel="alternate" hreflang="hi" href="hi/support.html">
+    <link rel="alternate" hreflang="x-default" href="support.html">
 </head>
 <body>
     <header class="header">
@@ -25,6 +31,13 @@
                     <li><a href="index.html#screenshots">Screenshots</a></li>
                     <li><a href="index.html#accessibility">Accessibility</a></li>
                     <li><a href="support.html" class="active">Support</a></li>
+                    <li class="language-selector">
+                        <select id="languageSelect" onchange="switchLanguage(this.value)">
+                            <option value="en" selected>English</option>
+                            <option value="es">Español</option>
+                            <option value="hi">हिंदी</option>
+                        </select>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -121,6 +134,23 @@
                                 <input type="text" id="system-info" name="system-info" placeholder="e.g., macOS 14.6, Apple Silicon">
                             </div>
                             
+                            <!-- Honeypot field (hidden from users, should remain empty) -->
+                            <div class="honeypot" style="display: none;">
+                                <label for="website">Website (leave blank)</label>
+                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+                            
+                            <!-- Simple math captcha -->
+                            <div class="form-group captcha-group">
+                                <label for="captcha-answer">Security Check</label>
+                                <div class="captcha-container">
+                                    <span class="captcha-question" id="captcha-question">Loading...</span>
+                                    <input type="number" id="captcha-answer" name="captcha-answer" required placeholder="Enter answer" min="-20" max="20">
+                                    <button type="button" id="refresh-captcha" class="captcha-refresh" title="Get new question">⟳</button>
+                                </div>
+                                <small class="captcha-help">Please solve the simple math problem above</small>
+                            </div>
+                            
                             <button type="submit" class="btn btn-primary btn-large">Send Message</button>
                         </form>
                         
@@ -167,5 +197,6 @@
     </footer>
 
     <script src="support.js"></script>
+    <script src="js/i18n.js"></script>
 </body>
 </html>

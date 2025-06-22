@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte - Ed-Toolkit</title>
+    <meta name="description" content="Obtén ayuda y soporte para Ed-Toolkit. Contacta a nuestro equipo para asistencia con características, accesibilidad o problemas técnicos.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SEO and language links -->
+    <link rel="alternate" hreflang="en" href="../support.html">
+    <link rel="alternate" hreflang="es" href="support.html">
+    <link rel="alternate" hreflang="hi" href="../hi/support.html">
+    <link rel="alternate" hreflang="x-default" href="../support.html">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <img src="../images/icon.png" alt="Icono de Ed-Toolkit" class="nav-icon">
+                        <span class="nav-title">Ed-Toolkit</span>
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">Características</a></li>
+                    <li><a href="index.html#screenshots">Capturas</a></li>
+                    <li><a href="index.html#accessibility">Accesibilidad</a></li>
+                    <li><a href="support.html" class="active">Soporte</a></li>
+                    <li class="language-selector">
+                        <select id="languageSelect" onchange="switchLanguage(this.value)">
+                            <option value="es" selected>Español</option>
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="support-hero">
+            <div class="container">
+                <h1 class="support-title">Estamos Aquí para Ayudar</h1>
+                <p class="support-subtitle">Obtén asistencia con las características de Ed-Toolkit, accesibilidad o problemas técnicos. Nuestro equipo está comprometido a asegurar que tengas la mejor experiencia posible.</p>
+            </div>
+        </section>
+
+        <section class="support-content">
+            <div class="container">
+                <div class="support-grid">
+                    <div class="support-info">
+                        <h2>Ayuda Rápida</h2>
+                        
+                        <div class="faq-section">
+                            <h3>Preguntas Frecuentes</h3>
+                            
+                            <div class="faq-item">
+                                <h4>¿Cómo cambio entre idiomas?</h4>
+                                <p>Ed-Toolkit usa automáticamente el idioma de tu sistema. Cambia la configuración de idioma de macOS en Preferencias del Sistema > Idioma y Región para alternar entre inglés, español e hindi.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>¿Cómo uso los atajos de teclado?</h4>
+                                <p>Cada herramienta tiene atajos específicos:
+                                <br>• Codificador de URL: ⌘E para codificar, ⌘D para decodificar
+                                <br>• Formateador JSON: ⌘K para limpiar, ⌘F para formatear
+                                <br>• Comparador de Diferencias: ⌘R para comparar, ⌘B para regresar</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>¿Es Ed-Toolkit accesible con lectores de pantalla?</h4>
+                                <p>¡Sí! Ed-Toolkit tiene soporte completo para VoiceOver con etiquetas descriptivas, sugerencias y gestión adecuada del foco. Todas las características son completamente accesibles mediante navegación por teclado.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>¿Qué formatos de archivo son compatibles?</h4>
+                                <p>Ed-Toolkit funciona con texto plano para todas las herramientas. El Formateador JSON soporta formato JSON estándar, y el Comparador de Diferencias puede comparar cualquier contenido de texto.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accessibility-help">
+                            <h3>Características de Accesibilidad</h3>
+                            <ul>
+                                <li><strong>VoiceOver:</strong> Soporte completo para lectores de pantalla</li>
+                                <li><strong>Navegación por Teclado:</strong> Navegación con Tab y teclas de flecha</li>
+                                <li><strong>Gestión de Foco:</strong> Manejo inteligente del foco</li>
+                                <li><strong>Alto Contraste:</strong> Respeta la configuración de accesibilidad del sistema</li>
+                                <li><strong>Multiidioma:</strong> Localizado para inglés, español e hindi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-section">
+                        <h2>Contactar Soporte</h2>
+                        <p>¿No encuentras lo que buscas? Envíanos un mensaje y te responderemos lo antes posible.</p>
+                        
+                        <form class="contact-form" id="supportForm">
+                            <div class="form-group">
+                                <label for="name">Tu Nombre</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Asunto</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Selecciona un tema</option>
+                                    <option value="feature-request">Solicitud de Característica</option>
+                                    <option value="bug-report">Reporte de Error</option>
+                                    <option value="accessibility">Problema de Accesibilidad</option>
+                                    <option value="localization">Problema de Localización</option>
+                                    <option value="general">Pregunta General</option>
+                                    <option value="other">Otro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Mensaje</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Por favor describe tu pregunta o problema en detalle. Incluye cualquier información relevante sobre tu sistema, la herramienta que estabas usando y pasos para reproducir el problema si aplica." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="system-info">Información del Sistema (Opcional)</label>
+                                <input type="text" id="system-info" name="system-info" placeholder="ej., macOS 14.6, Apple Silicon">
+                            </div>
+                            
+                            <!-- Honeypot field (hidden from users, should remain empty) -->
+                            <div class="honeypot" style="display: none;">
+                                <label for="website">Sitio web (dejar en blanco)</label>
+                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+                            
+                            <!-- Simple math captcha -->
+                            <div class="form-group captcha-group">
+                                <label for="captcha-answer">Verificación de Seguridad</label>
+                                <div class="captcha-container">
+                                    <span class="captcha-question" id="captcha-question">Cargando...</span>
+                                    <input type="number" id="captcha-answer" name="captcha-answer" required placeholder="Ingresa respuesta" min="-20" max="20">
+                                    <button type="button" id="refresh-captcha" class="captcha-refresh" title="Obtener nueva pregunta">⟳</button>
+                                </div>
+                                <small class="captcha-help">Por favor resuelve el problema matemático simple de arriba</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">Enviar Mensaje</button>
+                        </form>
+                        
+                        <div id="form-status" class="form-status" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/icon.png" alt="Icono de Ed-Toolkit" class="footer-icon">
+                    <span class="footer-title">Ed-Toolkit</span>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Producto</h4>
+                        <ul>
+                            <li><a href="index.html#features">Características</a></li>
+                            <li><a href="index.html#accessibility">Accesibilidad</a></li>
+                            <li><a href="index.html#download">Descargar</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Soporte</h4>
+                        <ul>
+                            <li><a href="support.html">Contactar Soporte</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#documentation">Documentación</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ed-Toolkit. Construido pensando en la accesibilidad.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../support.js"></script>
+    <script src="../js/i18n.js"></script>
+</body>
+</html>

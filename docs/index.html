@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SEO and language links -->
+    <link rel="alternate" hreflang="en" href="index.html">
+    <link rel="alternate" hreflang="es" href="es/index.html">
+    <link rel="alternate" hreflang="hi" href="hi/index.html">
+    <link rel="alternate" hreflang="x-default" href="index.html">
 </head>
 <body>
     <header class="header">
@@ -23,6 +29,13 @@
                     <li><a href="#screenshots">Screenshots</a></li>
                     <li><a href="#accessibility">Accessibility</a></li>
                     <li><a href="support.html">Support</a></li>
+                    <li class="language-selector">
+                        <select id="languageSelect" onchange="switchLanguage(this.value)">
+                            <option value="en" selected>English</option>
+                            <option value="es">Español</option>
+                            <option value="hi">हिंदी</option>
+                        </select>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -204,5 +217,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="js/i18n.js"></script>
 </body>
 </html>

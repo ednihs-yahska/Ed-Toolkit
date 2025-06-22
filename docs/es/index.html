@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ed-Toolkit - Herramientas Esenciales para Desarrolladores en macOS</title>
+    <meta name="description" content="Ed-Toolkit es un conjunto completo de herramientas para desarrolladores en macOS que incluye codificador/decodificador de URL, formateador JSON y comparador de diferencias con soporte completo de accesibilidad.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SEO and language links -->
+    <link rel="alternate" hreflang="en" href="../index.html">
+    <link rel="alternate" hreflang="es" href="index.html">
+    <link rel="alternate" hreflang="hi" href="../hi/index.html">
+    <link rel="alternate" hreflang="x-default" href="../index.html">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <img src="../images/icon.png" alt="Icono de Ed-Toolkit" class="nav-icon">
+                    <span class="nav-title">Ed-Toolkit</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Características</a></li>
+                    <li><a href="#screenshots">Capturas</a></li>
+                    <li><a href="#accessibility">Accesibilidad</a></li>
+                    <li><a href="support.html">Soporte</a></li>
+                    <li class="language-selector">
+                        <select id="languageSelect" onchange="switchLanguage(this.value)">
+                            <option value="es" selected>Español</option>
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Herramientas Esenciales para Desarrolladores en macOS</h1>
+                    <p class="hero-subtitle">Un conjunto completo de utilidades para desarrolladores con soporte completo de accesibilidad y localización multiidioma.</p>
+                    <div class="hero-buttons">
+                        <a href="#download" class="btn btn-primary">Descargar para macOS</a>
+                        <a href="#features" class="btn btn-secondary">Explorar Características</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="../images/url-decoder-english.png" alt="Vista previa de Ed-Toolkit mostrando el Codificador/Decodificador de URL" class="app-preview">
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Herramientas Poderosas para Desarrolladores</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <h3>Codificador/Decodificador de URL</h3>
+                        <p>Codifica y decodifica URLs rápidamente con soporte para caracteres especiales y Unicode. Perfecto para desarrollo web y pruebas de API.</p>
+                        <ul class="feature-list">
+                            <li>Codificación/decodificación en tiempo real</li>
+                            <li>Soporte para Unicode y caracteres especiales</li>
+                            <li>Atajos de teclado (⌘E/⌘D)</li>
+                            <li>Interfaz amigable para copiar y pegar</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <h3>Formateador y Visualizador JSON</h3>
+                        <p>Analiza, formatea y visualiza datos JSON con una estructura de árbol interactiva. Validación en tiempo real y reporte de errores.</p>
+                        <ul class="feature-list">
+                            <li>Vista de árbol JSON interactiva</li>
+                            <li>Análisis y validación en tiempo real</li>
+                            <li>Nodos expandibles/contraíbles</li>
+                            <li>Resaltado de sintaxis consciente del tipo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Comparador de Diferencias</h3>
+                        <p>Compara archivos de texto y documentos con resaltado de diferencias línea por línea. Perfecto para revisión de código y comparación de documentos.</p>
+                        <ul class="feature-list">
+                            <li>Comparación de texto lado a lado</li>
+                            <li>Adiciones/eliminaciones codificadas por color</li>
+                            <li>Seguimiento de números de línea</li>
+                            <li>Estadísticas y resumen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="accessibility" class="accessibility">
+            <div class="container">
+                <div class="accessibility-content">
+                    <h2 class="section-title">Construido para Todos</h2>
+                    <p class="section-subtitle">Ed-Toolkit está diseñado con la accesibilidad como núcleo, asegurando que todos los desarrolladores puedan usar nuestras herramientas de manera efectiva.</p>
+                    
+                    <div class="accessibility-features">
+                        <div class="accessibility-feature">
+                            <h3>🎯 Soporte para VoiceOver</h3>
+                            <p>Integración completa con lectores de pantalla con etiquetas descriptivas, sugerencias y anuncios para todos los elementos interactivos.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>⌨️ Navegación por Teclado</h3>
+                            <p>Soporte completo de teclado con atajos intuitivos y gestión de foco. No se requiere ratón.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>🌍 Soporte Multiidioma</h3>
+                            <p>Disponible en inglés, español e hindi con localización adecuada para todos los elementos de la interfaz y características de accesibilidad.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>🔄 Gestión de Foco</h3>
+                            <p>Manejo inteligente del foco que previene trampas de teclado y proporciona rutas claras de navegación a través de la interfaz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screenshots" class="screenshots">
+            <div class="container">
+                <h2 class="section-title">Véelo en Acción</h2>
+                <div class="screenshots-grid">
+                    <div class="screenshot">
+                        <img src="../images/url-decoder-english.png" alt="Codificador/Decodificador de URL en inglés">
+                        <h3>Codificador/Decodificador de URL</h3>
+                        <p>Interfaz limpia e intuitiva para procesamiento de URLs</p>
+                    </div>
+                    
+                    <div class="screenshot">
+                        <img src="../images/json-formatter-hindi.png" alt="Formateador JSON en hindi">
+                        <h3>Formateador JSON (Hindi)</h3>
+                        <p>Soporte multiidioma con localización completa</p>
+                    </div>
+                    
+                    <div class="screenshot">
+                        <img src="../images/diff-spanish.png" alt="Comparador de Diferencias en español">
+                        <h3>Comparador de Diferencias (Español)</h3>
+                        <p>Comparación de texto con diferencias codificadas por color</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download">
+            <div class="container">
+                <div class="download-content">
+                    <h2 class="section-title">¿Listo para Comenzar?</h2>
+                    <p class="section-subtitle">Descarga Ed-Toolkit para macOS y aumenta tu productividad de desarrollo hoy.</p>
+                    
+                    <div class="download-info">
+                        <div class="requirements">
+                            <h3>Requisitos del Sistema</h3>
+                            <ul>
+                                <li>macOS 14.6 o posterior</li>
+                                <li>Procesador Apple Silicon o Intel</li>
+                                <li>50 MB de almacenamiento disponible</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="download-button-container">
+                            <a href="#" class="btn btn-primary btn-large">Descargar para macOS</a>
+                            <p class="download-note">Gratis • Sin registro requerido</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../images/icon.png" alt="Icono de Ed-Toolkit" class="footer-icon">
+                    <span class="footer-title">Ed-Toolkit</span>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Producto</h4>
+                        <ul>
+                            <li><a href="#features">Características</a></li>
+                            <li><a href="#accessibility">Accesibilidad</a></li>
+                            <li><a href="#download">Descargar</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Soporte</h4>
+                        <ul>
+                            <li><a href="support.html">Contactar Soporte</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#documentation">Documentación</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ed-Toolkit. Construido pensando en la accesibilidad.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/i18n.js"></script>
+</body>
+</html>

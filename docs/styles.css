@@ -641,3 +641,105 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Abuse Prevention Styles */
+.honeypot {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
+.captcha-group {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.captcha-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.captcha-question {
+    background: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #374151;
+    min-width: 100px;
+    text-align: center;
+}
+
+.captcha-container input[type="number"] {
+    width: 80px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+}
+
+.captcha-refresh {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.captcha-refresh:hover {
+    background: #d97706;
+}
+
+.captcha-refresh:focus {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+}
+
+.captcha-help {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* Enhanced form status for rate limiting */
+.form-status.warning {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #f59e0b;
+}
+
+/* Mobile responsiveness for captcha */
+@media (max-width: 480px) {
+    .captcha-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .captcha-container input[type="number"] {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .captcha-refresh {
+        align-self: center;
+        width: 50px;
+        height: 50px;
+    }
+}
