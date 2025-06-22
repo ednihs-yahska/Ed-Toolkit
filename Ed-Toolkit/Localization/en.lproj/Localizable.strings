@@ -60,3 +60,45 @@
 "url_encoder_decoder.action.repeat_shortcuts" = "Repeat shortcuts";
 "url_encoder_decoder.accessibility.help_info" = "Help information";
 "url_encoder_decoder.accessibility.shortcuts_available" = "Available keyboard shortcuts: Command E to encode text, Command D to decode text, Command M to switch between encode and decode modes, Command R to switch mode and process text immediately";
+
+// MARK: - Diff Matcher View
+"diff_matcher.title" = "Diff Matcher";
+"diff_matcher.subtitle" = "Compare two texts and see the differences";
+"diff_matcher.original_text" = "Original Text";
+"diff_matcher.modified_text" = "Modified Text";
+"diff_matcher.compare" = "Compare";
+"diff_matcher.back_to_input" = "Back to Input";
+
+// MARK: - Diff Matcher Statistics
+"diff_matcher.additions" = "additions";
+"diff_matcher.deletions" = "deletions";
+"diff_matcher.additions_count" = "%d additions";
+"diff_matcher.deletions_count" = "%d deletions";
+"diff_matcher.diff_summary" = "Found %d additions and %d deletions";
+
+// MARK: - Diff Matcher Accessibility
+"diff_matcher.accessibility.title" = "Text Difference Comparison Tool";
+"diff_matcher.accessibility.subtitle" = "Compare two texts and see the differences";
+"diff_matcher.accessibility.original_text_editor" = "Original text input area";
+"diff_matcher.accessibility.modified_text_editor" = "Modified text input area";
+"diff_matcher.accessibility.compare_button" = "Compare texts";
+"diff_matcher.accessibility.back_button" = "Back to input view";
+"diff_matcher.accessibility.results_view" = "Comparison results";
+"diff_matcher.accessibility.diff_line" = "Difference line";
+"diff_matcher.accessibility.main_view" = "Diff Matcher";
+
+// MARK: - Diff Matcher Accessibility Hints
+"diff_matcher.accessibility.original_text_hint" = "Enter the original text that you want to compare. This will be shown as the baseline for comparison.";
+"diff_matcher.accessibility.modified_text_hint" = "Enter the modified text that you want to compare against the original. Changes will be highlighted in the results.";
+"diff_matcher.accessibility.compare_hint" = "Process both texts and show the differences. Additions will be shown in green, deletions in red.";
+"diff_matcher.accessibility.back_hint" = "Return to the input view to modify the texts for comparison.";
+"diff_matcher.accessibility.results_hint" = "Shows line-by-line comparison with additions in green and deletions in red.";
+
+// MARK: - Diff Matcher Status Messages
+"diff_matcher.accessibility.no_changes" = "No differences found between the texts";
+"diff_matcher.accessibility.changes_found" = "Differences found and highlighted";
+"diff_matcher.accessibility.empty_input" = "Please enter text in both fields to compare";
+"diff_matcher.accessibility.returned_to_input" = "Returned to input view";
+"diff_matcher.accessibility.all_text_cleared" = "All text cleared";
+"diff_matcher.accessibility.texts_swapped" = "Text areas swapped";
+"diff_matcher.accessibility.keyboard_shortcuts" = "⌘R: Compare texts • ⌘B: Back to input • ⌘K: Clear all • ⌘S: Swap texts • ⌘⌥→/←: Navigate between text areas";

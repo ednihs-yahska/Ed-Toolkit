@@ -224,9 +224,18 @@ All text strings have been extracted and localized:
 - **Status Messages**: Success/failure announcements with dynamic content
 - **Dynamic Strings**: Character counts and formatted messages
 
+### DiffMatcherView Localization
+Comprehensive localization implemented for the text comparison tool:
+- **UI Elements**: Title, subtitle, input labels, button text
+- **Statistics**: Addition and deletion counts with formatted strings
+- **Accessibility Features**: Complete VoiceOver support with descriptive labels and hints
+- **Results Display**: Line-by-line diff descriptions with context-aware accessibility
+- **Status Messages**: User feedback for empty inputs and comparison results
+- **Dynamic Content**: Formatted count messages and diff summaries
+
 ### Localization Implementation
 ```swift
-// Simple strings
+// URL Encoder/Decoder examples
 Text(URLEncoderDecoderStrings.title)
 
 // Dynamic accessibility labels
@@ -234,6 +243,19 @@ Text(URLEncoderDecoderStrings.title)
 
 // Formatted strings with parameters
 URLEncoderDecoderStrings.Status.encodedSuccess(characterCount: resultLength)
+
+// Diff Matcher examples
+Text(DiffMatcherStrings.title)
+
+// Statistics with formatted counts
+Label(DiffMatcherStrings.additionsCount(additionCount), systemImage: "plus.circle.fill")
+
+// Accessibility with custom modifiers
+.textInputAccessibility(
+    label: DiffMatcherStrings.Accessibility.originalTextEditor,
+    hint: DiffMatcherStrings.Accessibility.originalTextHint,
+    identifier: "DiffMatcher.originalTextEditor"
+)
 ```
 
 ### Adding New Languages
@@ -301,3 +323,14 @@ Key features:
 - Handles empty lines and maintains proper formatting
 - Monospaced font for code-friendly display
 - Clean navigation between input and results views
+
+#### DiffMatcherView Accessibility Features:
+- **Focus Management**: Complete @FocusState implementation for all interactive elements
+- **Initial Focus**: Opens with focus on left text editor for immediate input
+- **VoiceOver Support**: Full screen reader integration with descriptive labels
+- **Line-by-Line Descriptions**: Context-aware accessibility for diff results
+- **Custom Modifiers**: Uses reusable accessibility modifiers from UIModifiers
+- **Status Announcements**: Real-time feedback for user actions and results
+- **Keyboard Shortcuts**: ⌘R (compare), ⌘B (back), ⌘K (clear), ⌘S (swap), ⌘⌥→/← (navigate between text areas)
+- **TextEditor Escape**: Keyboard shortcuts provide escape routes from text fields
+- **Localized Announcements**: All feedback available in English, Spanish, and Hindi

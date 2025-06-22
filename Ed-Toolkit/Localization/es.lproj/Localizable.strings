@@ -60,3 +60,45 @@
 "url_encoder_decoder.action.repeat_shortcuts" = "Repetir atajos";
 "url_encoder_decoder.accessibility.help_info" = "Información de ayuda";
 "url_encoder_decoder.accessibility.shortcuts_available" = "Atajos de teclado disponibles: Comando E para codificar texto, Comando D para decodificar texto, Comando M para cambiar entre modos de codificación y decodificación, Comando R para cambiar modo y procesar texto inmediatamente";
+
+// MARK: - Diff Matcher View
+"diff_matcher.title" = "Comparador de Diferencias";
+"diff_matcher.subtitle" = "Compara dos textos y ve las diferencias";
+"diff_matcher.original_text" = "Texto Original";
+"diff_matcher.modified_text" = "Texto Modificado";
+"diff_matcher.compare" = "Comparar";
+"diff_matcher.back_to_input" = "Volver a Entrada";
+
+// MARK: - Diff Matcher Statistics
+"diff_matcher.additions" = "adiciones";
+"diff_matcher.deletions" = "eliminaciones";
+"diff_matcher.additions_count" = "%d adiciones";
+"diff_matcher.deletions_count" = "%d eliminaciones";
+"diff_matcher.diff_summary" = "Se encontraron %d adiciones y %d eliminaciones";
+
+// MARK: - Diff Matcher Accessibility
+"diff_matcher.accessibility.title" = "Herramienta de Comparación de Diferencias de Texto";
+"diff_matcher.accessibility.subtitle" = "Compara dos textos y ve las diferencias";
+"diff_matcher.accessibility.original_text_editor" = "Área de entrada de texto original";
+"diff_matcher.accessibility.modified_text_editor" = "Área de entrada de texto modificado";
+"diff_matcher.accessibility.compare_button" = "Comparar textos";
+"diff_matcher.accessibility.back_button" = "Volver a vista de entrada";
+"diff_matcher.accessibility.results_view" = "Resultados de comparación";
+"diff_matcher.accessibility.diff_line" = "Línea de diferencia";
+"diff_matcher.accessibility.main_view" = "Comparador de Diferencias";
+
+// MARK: - Diff Matcher Accessibility Hints
+"diff_matcher.accessibility.original_text_hint" = "Ingrese el texto original que desea comparar. Este se mostrará como la línea base para la comparación.";
+"diff_matcher.accessibility.modified_text_hint" = "Ingrese el texto modificado que desea comparar contra el original. Los cambios se resaltarán en los resultados.";
+"diff_matcher.accessibility.compare_hint" = "Procesa ambos textos y muestra las diferencias. Las adiciones se mostrarán en verde, las eliminaciones en rojo.";
+"diff_matcher.accessibility.back_hint" = "Regresar a la vista de entrada para modificar los textos para comparación.";
+"diff_matcher.accessibility.results_hint" = "Muestra comparación línea por línea con adiciones en verde y eliminaciones en rojo.";
+
+// MARK: - Diff Matcher Status Messages
+"diff_matcher.accessibility.no_changes" = "No se encontraron diferencias entre los textos";
+"diff_matcher.accessibility.changes_found" = "Diferencias encontradas y resaltadas";
+"diff_matcher.accessibility.empty_input" = "Por favor ingrese texto en ambos campos para comparar";
+"diff_matcher.accessibility.returned_to_input" = "Regresado a la vista de entrada";
+"diff_matcher.accessibility.all_text_cleared" = "Todo el texto eliminado";
+"diff_matcher.accessibility.texts_swapped" = "Áreas de texto intercambiadas";
+"diff_matcher.accessibility.keyboard_shortcuts" = "⌘R: Comparar textos • ⌘B: Volver a entrada • ⌘K: Limpiar todo • ⌘S: Intercambiar textos • ⌘⌥→/←: Navegar entre áreas de texto";

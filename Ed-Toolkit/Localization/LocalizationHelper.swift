@@ -88,3 +88,62 @@ struct URLEncoderDecoderStrings {
     static let switchMode = "url_encoder_decoder.switch_mode".localized
     static let switchAndProcess = "url_encoder_decoder.switch_and_process".localized
 }
+
+// MARK: - Diff Matcher Localized Strings
+struct DiffMatcherStrings {
+    // MARK: - UI Labels
+    static let title = "diff_matcher.title".localized
+    static let subtitle = "diff_matcher.subtitle".localized
+    static let originalText = "diff_matcher.original_text".localized
+    static let modifiedText = "diff_matcher.modified_text".localized
+    static let compare = "diff_matcher.compare".localized
+    static let backToInput = "diff_matcher.back_to_input".localized
+    
+    // MARK: - Statistics
+    static let additions = "diff_matcher.additions".localized
+    static let deletions = "diff_matcher.deletions".localized
+    
+    // MARK: - Accessibility Labels
+    struct Accessibility {
+        static let title = "diff_matcher.accessibility.title".localized
+        static let subtitle = "diff_matcher.accessibility.subtitle".localized
+        static let originalTextEditor = "diff_matcher.accessibility.original_text_editor".localized
+        static let modifiedTextEditor = "diff_matcher.accessibility.modified_text_editor".localized
+        static let compareButton = "diff_matcher.accessibility.compare_button".localized
+        static let backButton = "diff_matcher.accessibility.back_button".localized
+        static let resultsView = "diff_matcher.accessibility.results_view".localized
+        static let diffLine = "diff_matcher.accessibility.diff_line".localized
+        static let mainView = "diff_matcher.accessibility.main_view".localized
+        
+        // MARK: - Hints
+        static let originalTextHint = "diff_matcher.accessibility.original_text_hint".localized
+        static let modifiedTextHint = "diff_matcher.accessibility.modified_text_hint".localized
+        static let compareHint = "diff_matcher.accessibility.compare_hint".localized
+        static let backHint = "diff_matcher.accessibility.back_hint".localized
+        static let resultsHint = "diff_matcher.accessibility.results_hint".localized
+        
+        // MARK: - Status Messages
+        static let noChanges = "diff_matcher.accessibility.no_changes".localized
+        static let changesFound = "diff_matcher.accessibility.changes_found".localized
+        static let emptyInput = "diff_matcher.accessibility.empty_input".localized
+        static let returnedToInput = "diff_matcher.accessibility.returned_to_input".localized
+        static let allTextCleared = "diff_matcher.accessibility.all_text_cleared".localized
+        static let textsSwapped = "diff_matcher.accessibility.texts_swapped".localized
+        
+        // MARK: - Keyboard Shortcuts
+        static let keyboardShortcuts = "diff_matcher.accessibility.keyboard_shortcuts".localized
+    }
+    
+    // MARK: - Dynamic Content
+    static func additionsCount(_ count: Int) -> String {
+        return "diff_matcher.additions_count".localized(with: count)
+    }
+    
+    static func deletionsCount(_ count: Int) -> String {
+        return "diff_matcher.deletions_count".localized(with: count)
+    }
+    
+    static func diffSummary(additions: Int, deletions: Int) -> String {
+        return "diff_matcher.diff_summary".localized(with: additions, deletions)
+    }
+}

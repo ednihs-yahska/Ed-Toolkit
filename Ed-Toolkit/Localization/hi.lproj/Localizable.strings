@@ -60,3 +60,45 @@
 "url_encoder_decoder.action.repeat_shortcuts" = "शॉर्टकट दोहराएं";
 "url_encoder_decoder.accessibility.help_info" = "सहायता जानकारी";
 "url_encoder_decoder.accessibility.shortcuts_available" = "उपलब्ध कीबोर्ड शॉर्टकट: टेक्स्ट एन्कोड करने के लिए कमांड E, टेक्स्ट डिकोड करने के लिए कमांड D, एन्कोड और डिकोड मोड के बीच स्विच करने के लिए कमांड M, मोड बदलने और तुरंत टेक्स्ट प्रोसेस करने के लिए कमांड R";
+
+// MARK: - Diff Matcher View
+"diff_matcher.title" = "डिफ मैचर";
+"diff_matcher.subtitle" = "दो टेक्स्ट की तुलना करें और अंतर देखें";
+"diff_matcher.original_text" = "मूल टेक्स्ट";
+"diff_matcher.modified_text" = "संशोधित टेक्स्ट";
+"diff_matcher.compare" = "तुलना करें";
+"diff_matcher.back_to_input" = "इनपुट पर वापस";
+
+// MARK: - Diff Matcher Statistics
+"diff_matcher.additions" = "जोड़े गए";
+"diff_matcher.deletions" = "हटाए गए";
+"diff_matcher.additions_count" = "%d जोड़े गए";
+"diff_matcher.deletions_count" = "%d हटाए गए";
+"diff_matcher.diff_summary" = "%d जोड़े गए और %d हटाए गए मिले";
+
+// MARK: - Diff Matcher Accessibility
+"diff_matcher.accessibility.title" = "टेक्स्ट अंतर तुलना टूल";
+"diff_matcher.accessibility.subtitle" = "दो टेक्स्ट की तुलना करें और अंतर देखें";
+"diff_matcher.accessibility.original_text_editor" = "मूल टेक्स्ट इनपुट क्षेत्र";
+"diff_matcher.accessibility.modified_text_editor" = "संशोधित टेक्स्ट इनपुट क्षेत्र";
+"diff_matcher.accessibility.compare_button" = "टेक्स्ट की तुलना करें";
+"diff_matcher.accessibility.back_button" = "इनपुट व्यू पर वापस";
+"diff_matcher.accessibility.results_view" = "तुलना परिणाम";
+"diff_matcher.accessibility.diff_line" = "अंतर लाइन";
+"diff_matcher.accessibility.main_view" = "डिफ मैचर";
+
+// MARK: - Diff Matcher Accessibility Hints
+"diff_matcher.accessibility.original_text_hint" = "मूल टेक्स्ट दर्ज करें जिसकी आप तुलना करना चाहते हैं। यह तुलना के लिए आधार रेखा के रूप में दिखाया जाएगा।";
+"diff_matcher.accessibility.modified_text_hint" = "संशोधित टेक्स्ट दर्ज करें जिसकी आप मूल के साथ तुलना करना चाहते हैं। परिवर्तन परिणामों में हाइलाइट किए जाएंगे।";
+"diff_matcher.accessibility.compare_hint" = "दोनों टेक्स्ट को प्रोसेस करें और अंतर दिखाएं। जोड़े गए हरे रंग में, हटाए गए लाल रंग में दिखाए जाएंगे।";
+"diff_matcher.accessibility.back_hint" = "तुलना के लिए टेक्स्ट को संशोधित करने के लिए इनपुट व्यू पर वापस जाएं।";
+"diff_matcher.accessibility.results_hint" = "हरे रंग में जोड़े गए और लाल रंग में हटाए गए के साथ लाइन-बाय-लाइन तुलना दिखाता है।";
+
+// MARK: - Diff Matcher Status Messages
+"diff_matcher.accessibility.no_changes" = "टेक्स्ट के बीच कोई अंतर नहीं मिला";
+"diff_matcher.accessibility.changes_found" = "अंतर मिले और हाइलाइट किए गए";
+"diff_matcher.accessibility.empty_input" = "कृपया तुलना करने के लिए दोनों फील्ड में टेक्स्ट दर्ज करें";
+"diff_matcher.accessibility.returned_to_input" = "इनपुट व्यू पर वापस आ गए";
+"diff_matcher.accessibility.all_text_cleared" = "सभी टेक्स्ट साफ कर दिया गया";
+"diff_matcher.accessibility.texts_swapped" = "टेक्स्ट क्षेत्र अदला-बदली की गई";
+"diff_matcher.accessibility.keyboard_shortcuts" = "⌘R: टेक्स्ट तुलना करें • ⌘B: इनपुट पर वापस • ⌘K: सभी साफ करें • ⌘S: टेक्स्ट अदला-बदली करें • ⌘⌥→/←: टेक्स्ट क्षेत्रों के बीच नेविगेट करें";
