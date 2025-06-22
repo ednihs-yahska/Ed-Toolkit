@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Ed-Toolkit</title>
+    <meta name="description" content="Get help and support for Ed-Toolkit. Contact our team for assistance with features, accessibility, or technical issues.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <img src="images/icon.png" alt="Ed-Toolkit Icon" class="nav-icon">
+                        <span class="nav-title">Ed-Toolkit</span>
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#screenshots">Screenshots</a></li>
+                    <li><a href="index.html#accessibility">Accessibility</a></li>
+                    <li><a href="support.html" class="active">Support</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="support-hero">
+            <div class="container">
+                <h1 class="support-title">We're Here to Help</h1>
+                <p class="support-subtitle">Get assistance with Ed-Toolkit features, accessibility, or technical issues. Our team is committed to ensuring you have the best experience possible.</p>
+            </div>
+        </section>
+
+        <section class="support-content">
+            <div class="container">
+                <div class="support-grid">
+                    <div class="support-info">
+                        <h2>Quick Help</h2>
+                        
+                        <div class="faq-section">
+                            <h3>Frequently Asked Questions</h3>
+                            
+                            <div class="faq-item">
+                                <h4>How do I switch between languages?</h4>
+                                <p>Ed-Toolkit automatically uses your system language. Change your macOS language settings in System Preferences > Language & Region to switch between English, Spanish, and Hindi.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>How do I use keyboard shortcuts?</h4>
+                                <p>Each tool has specific keyboard shortcuts:
+                                <br>• URL Encoder: ⌘E to encode, ⌘D to decode
+                                <br>• JSON Formatter: ⌘K to clear, ⌘F to format
+                                <br>• Diff Matcher: ⌘R to compare, ⌘B to go back</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>Is Ed-Toolkit accessible with screen readers?</h4>
+                                <p>Yes! Ed-Toolkit has comprehensive VoiceOver support with descriptive labels, hints, and proper focus management. All features are fully accessible via keyboard navigation.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>What file formats are supported?</h4>
+                                <p>Ed-Toolkit works with plain text for all tools. The JSON Formatter supports standard JSON format, and the Diff Matcher can compare any text content.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accessibility-help">
+                            <h3>Accessibility Features</h3>
+                            <ul>
+                                <li><strong>VoiceOver:</strong> Complete screen reader support</li>
+                                <li><strong>Keyboard Navigation:</strong> Tab and arrow key navigation</li>
+                                <li><strong>Focus Management:</strong> Smart focus handling</li>
+                                <li><strong>High Contrast:</strong> Respects system accessibility settings</li>
+                                <li><strong>Multi-Language:</strong> Localized for English, Spanish, and Hindi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-section">
+                        <h2>Contact Support</h2>
+                        <p>Can't find what you're looking for? Send us a message and we'll get back to you as soon as possible.</p>
+                        
+                        <form class="contact-form" id="supportForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a topic</option>
+                                    <option value="feature-request">Feature Request</option>
+                                    <option value="bug-report">Bug Report</option>
+                                    <option value="accessibility">Accessibility Issue</option>
+                                    <option value="localization">Localization Issue</option>
+                                    <option value="general">General Question</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Please describe your question or issue in detail. Include any relevant information about your system, the tool you were using, and steps to reproduce the issue if applicable." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="system-info">System Information (Optional)</label>
+                                <input type="text" id="system-info" name="system-info" placeholder="e.g., macOS 14.6, Apple Silicon">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+                        </form>
+                        
+                        <div id="form-status" class="form-status" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/icon.png" alt="Ed-Toolkit Icon" class="footer-icon">
+                    <span class="footer-title">Ed-Toolkit</span>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#accessibility">Accessibility</a></li>
+                            <li><a href="index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="support.html">Contact Support</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#documentation">Documentation</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ed-Toolkit. Built with accessibility in mind.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="support.js"></script>
+</body>
+</html>
