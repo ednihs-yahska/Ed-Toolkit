@@ -10,6 +10,7 @@ import SwiftUI
 enum Tool: String, CaseIterable {
     case urlEncoderDecoder = "URL Encoder/Decoder"
     case jsonFormatter = "JSON Formatter"
+    case diffMatcher = "Diff Matcher"
     
     var icon: String {
         switch self {
@@ -17,6 +18,8 @@ enum Tool: String, CaseIterable {
             return "link"
         case .jsonFormatter:
             return "curlybraces"
+        case .diffMatcher:
+            return "arrow.triangle.branch"
         }
     }
 }
@@ -39,6 +42,8 @@ struct ToolsDashboardView: View {
                     URLEncoderDecoderView()
                 case .jsonFormatter:
                     JSONFormatterView()
+                case .diffMatcher:
+                    DiffMatcherView()
                 }
             } else {
                 Text("Select a tool")
