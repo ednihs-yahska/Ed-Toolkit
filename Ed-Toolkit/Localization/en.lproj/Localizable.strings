@@ -61,6 +61,19 @@
 "url_encoder_decoder.accessibility.help_info" = "Help information";
 "url_encoder_decoder.accessibility.shortcuts_available" = "Available keyboard shortcuts: Command E to encode text, Command D to decode text, Command M to switch between encode and decode modes, Command R to switch mode and process text immediately";
 
+// MARK: - Tools Dashboard
+"tools_dashboard.navigation_title" = "Tools";
+"tools_dashboard.select_tool" = "Select a tool";
+"tools_dashboard.url_encoder_decoder" = "URL Encoder/Decoder";
+"tools_dashboard.json_formatter" = "JSON Formatter";
+"tools_dashboard.diff_matcher" = "Diff Matcher";
+
+// MARK: - Tools Dashboard Accessibility
+"tools_dashboard.accessibility.tools_list" = "Available tools list";
+"tools_dashboard.accessibility.tool_item" = "Tool";
+"tools_dashboard.accessibility.select_tool_hint" = "Select this tool to open it in the main area";
+"tools_dashboard.accessibility.main_view" = "Tools Dashboard";
+
 // MARK: - Diff Matcher View
 "diff_matcher.title" = "Diff Matcher";
 "diff_matcher.subtitle" = "Compare two texts and see the differences";

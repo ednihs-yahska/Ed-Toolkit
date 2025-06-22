@@ -61,6 +61,19 @@
 "url_encoder_decoder.accessibility.help_info" = "Información de ayuda";
 "url_encoder_decoder.accessibility.shortcuts_available" = "Atajos de teclado disponibles: Comando E para codificar texto, Comando D para decodificar texto, Comando M para cambiar entre modos de codificación y decodificación, Comando R para cambiar modo y procesar texto inmediatamente";
 
+// MARK: - Tools Dashboard
+"tools_dashboard.navigation_title" = "Herramientas";
+"tools_dashboard.select_tool" = "Selecciona una herramienta";
+"tools_dashboard.url_encoder_decoder" = "Codificador/Decodificador de URL";
+"tools_dashboard.json_formatter" = "Formateador JSON";
+"tools_dashboard.diff_matcher" = "Comparador de Diferencias";
+
+// MARK: - Tools Dashboard Accessibility
+"tools_dashboard.accessibility.tools_list" = "Lista de herramientas disponibles";
+"tools_dashboard.accessibility.tool_item" = "Herramienta";
+"tools_dashboard.accessibility.select_tool_hint" = "Selecciona esta herramienta para abrirla en el área principal";
+"tools_dashboard.accessibility.main_view" = "Panel de Herramientas";
+
 // MARK: - Diff Matcher View
 "diff_matcher.title" = "Comparador de Diferencias";
 "diff_matcher.subtitle" = "Compara dos textos y ve las diferencias";

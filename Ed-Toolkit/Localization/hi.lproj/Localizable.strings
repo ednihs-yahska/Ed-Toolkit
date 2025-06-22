@@ -61,6 +61,19 @@
 "url_encoder_decoder.accessibility.help_info" = "सहायता जानकारी";
 "url_encoder_decoder.accessibility.shortcuts_available" = "उपलब्ध कीबोर्ड शॉर्टकट: टेक्स्ट एन्कोड करने के लिए कमांड E, टेक्स्ट डिकोड करने के लिए कमांड D, एन्कोड और डिकोड मोड के बीच स्विच करने के लिए कमांड M, मोड बदलने और तुरंत टेक्स्ट प्रोसेस करने के लिए कमांड R";
 
+// MARK: - Tools Dashboard
+"tools_dashboard.navigation_title" = "उपकरण";
+"tools_dashboard.select_tool" = "एक उपकरण चुनें";
+"tools_dashboard.url_encoder_decoder" = "URL एन्कोडर/डिकोडर";
+"tools_dashboard.json_formatter" = "JSON फॉर्मेटर";
+"tools_dashboard.diff_matcher" = "डिफ मैचर";
+
+// MARK: - Tools Dashboard Accessibility
+"tools_dashboard.accessibility.tools_list" = "उपलब्ध उपकरणों की सूची";
+"tools_dashboard.accessibility.tool_item" = "उपकरण";
+"tools_dashboard.accessibility.select_tool_hint" = "इस उपकरण को मुख्य क्षेत्र में खोलने के लिए चुनें";
+"tools_dashboard.accessibility.main_view" = "उपकरण डैशबोर्ड";
+
 // MARK: - Diff Matcher View
 "diff_matcher.title" = "डिफ मैचर";
 "diff_matcher.subtitle" = "दो टेक्स्ट की तुलना करें और अंतर देखें";

@@ -148,6 +148,26 @@ struct DiffMatcherStrings {
     }
 }
 
+// MARK: - Tools Dashboard Localized Strings
+struct ToolsDashboardStrings {
+    // MARK: - Navigation
+    static let navigationTitle = "tools_dashboard.navigation_title".localized
+    static let selectTool = "tools_dashboard.select_tool".localized
+    
+    // MARK: - Tool Names
+    static let urlEncoderDecoder = "tools_dashboard.url_encoder_decoder".localized
+    static let jsonFormatter = "tools_dashboard.json_formatter".localized
+    static let diffMatcher = "tools_dashboard.diff_matcher".localized
+    
+    // MARK: - Accessibility
+    struct Accessibility {
+        static let toolsList = "tools_dashboard.accessibility.tools_list".localized
+        static let toolItem = "tools_dashboard.accessibility.tool_item".localized
+        static let selectToolHint = "tools_dashboard.accessibility.select_tool_hint".localized
+        static let mainView = "tools_dashboard.accessibility.main_view".localized
+    }
+}
+
 // MARK: - JSON Formatter Localized Strings
 struct JSONFormatterStrings {
     // MARK: - UI Labels
