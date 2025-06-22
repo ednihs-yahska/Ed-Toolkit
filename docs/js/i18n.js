@@ -67,10 +67,35 @@
 
     // Build URL for language and page
     function buildLanguageURL(langCode, page) {
-        const baseURL = window.location.origin + window.location.pathname.split('/docs/')[0] + '/docs/';
+        const currentPath = window.location.pathname;
         const langDir = LANGUAGES[langCode].dir;
         
-        return baseURL + langDir + page;
+        // Determine if we're currently in a language subdirectory
+        const isInLanguageDir = currentPath.includes('/es/') || currentPath.includes('/hi/');
+        
+        let targetURL;
+        
+        if (langCode === 'en') {
+            // Going to English (root)
+            if (isInLanguageDir) {
+                // We're in a language subdir, go up one level
+                targetURL = '../' + page;
+            } else {
+                // We're already in root
+                targetURL = page;
+            }
+        } else {
+            // Going to a language subdirectory
+            if (isInLanguageDir) {
+                // We're in a language subdir, go to sibling language dir
+                targetURL = '../' + langDir + page;
+            } else {
+                // We're in root, go to language subdir
+                targetURL = langDir + page;
+            }
+        }
+        
+        return targetURL;
     }
 
     // Switch to different language
@@ -86,8 +111,9 @@
         // Save language preference
         saveLanguage(targetLang);
         
-        // Navigate to new language
-        window.location.href = newURL;
+        // Navigate to new language using relative path
+        console.log('Switching to:', targetLang, 'URL:', newURL); // Debug log
+        window.location.assign(newURL);
     }
 
     // Initialize language selector
@@ -211,7 +237,7 @@
 })();
 
 // Debug helper (remove in production)
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('github')) {
     window.i18nDebug = {
         getCurrentLanguage: function() {
             const path = window.location.pathname;
@@ -224,6 +250,12 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
         },
         switchToLanguage: function(lang) {
             window.switchLanguage(lang);
+        },
+        testURL: function(lang, page) {
+            console.log('Current path:', window.location.pathname);
+            console.log('Target language:', lang);
+            console.log('Target page:', page);
+            console.log('Generated URL:', buildLanguageURL(lang, page || getCurrentPage()));
         }
     };
 }
