@@ -4,12 +4,11 @@
 (function() {
     'use strict';
 
-    // Language configuration
+    // Language configuration - all languages now have subdirectories
     const LANGUAGES = {
         'en': {
             name: 'English',
-            dir: '',
-            default: true
+            dir: 'en/'
         },
         'es': {
             name: 'Español',
@@ -26,9 +25,12 @@
         const path = window.location.pathname;
         
         // Check if we're in a language subdirectory
+        if (path.includes('/en/')) return 'en';
         if (path.includes('/es/')) return 'es';
         if (path.includes('/hi/')) return 'hi';
-        return 'en'; // Default to English
+        
+        // If we're in root, default to English
+        return 'en';
     }
 
     // Get current page (index or support)
@@ -70,32 +72,30 @@
         const currentPath = window.location.pathname;
         const langDir = LANGUAGES[langCode].dir;
         
-        // Determine if we're currently in a language subdirectory
-        const isInLanguageDir = currentPath.includes('/es/') || currentPath.includes('/hi/');
+        // Find the base path (everything before the language directory)
+        let basePath = '';
         
-        let targetURL;
-        
-        if (langCode === 'en') {
-            // Going to English (root)
-            if (isInLanguageDir) {
-                // We're in a language subdir, go up one level
-                targetURL = '../' + page;
-            } else {
-                // We're already in root
-                targetURL = page;
-            }
+        // Check if we're already in a language directory
+        const langMatch = currentPath.match(/^(.*)\/(?:en|es|hi)\//);
+        if (langMatch) {
+            basePath = langMatch[1] + '/';
         } else {
-            // Going to a language subdirectory
-            if (isInLanguageDir) {
-                // We're in a language subdir, go to sibling language dir
-                targetURL = '../' + langDir + page;
-            } else {
-                // We're in root, go to language subdir
-                targetURL = langDir + page;
+            // We're in root, find the base path
+            const pathParts = currentPath.split('/');
+            // Remove the last part if it's a file
+            if (pathParts[pathParts.length - 1].includes('.html')) {
+                pathParts.pop();
+            }
+            basePath = pathParts.join('/');
+            if (!basePath.endsWith('/')) {
+                basePath += '/';
             }
         }
         
-        return targetURL;
+        // Build the complete URL
+        const newURL = basePath + langDir + page;
+        
+        return newURL;
     }
 
     // Switch to different language
@@ -111,9 +111,9 @@
         // Save language preference
         saveLanguage(targetLang);
         
-        // Navigate to new language using relative path
+        // Navigate to new language
         console.log('Switching to:', targetLang, 'URL:', newURL); // Debug log
-        window.location.assign(newURL);
+        window.location.href = newURL;
     }
 
     // Initialize language selector
@@ -132,12 +132,22 @@
         });
     }
 
-    // Auto-redirect based on language preference (only on first visit)
+    // Auto-redirect based on language preference (DISABLED to prevent issues)
     function handleLanguageRedirect() {
-        // Only redirect from root/English pages
+        // DISABLED: Auto-redirect causes issues with GitHub Pages
+        // Users can manually select their preferred language
+        return;
+        
+        /* 
+        // Only redirect from root pages
         const currentLang = getCurrentLanguage();
-        if (currentLang !== 'en') return;
-
+        const currentPath = window.location.pathname;
+        
+        // Don't redirect if we're already in a language directory
+        if (currentPath.includes('/en/') || currentPath.includes('/es/') || currentPath.includes('/hi/')) {
+            return;
+        }
+        
         // Check if this is a direct visit (not navigation within site)
         const isDirectVisit = !document.referrer || 
                             !document.referrer.includes(window.location.hostname);
@@ -148,12 +158,13 @@
         const savedLang = getSavedLanguage();
         const preferredLang = savedLang || detectBrowserLanguage();
         
-        // Only redirect if preference is different from current
-        if (preferredLang !== 'en' && LANGUAGES[preferredLang]) {
+        // Redirect to preferred language
+        if (LANGUAGES[preferredLang]) {
             const currentPage = getCurrentPage();
             const newURL = buildLanguageURL(preferredLang, currentPage);
             window.location.replace(newURL);
         }
+        */
     }
 
     // Add language switcher styles
@@ -220,7 +231,7 @@
         // Initialize language selector
         initializeLanguageSelector();
         
-        // Handle automatic language redirect (only on page load)
+        // Handle automatic language redirect (currently disabled)
         handleLanguageRedirect();
     }
 
@@ -236,11 +247,12 @@
 
 })();
 
-// Debug helper (remove in production)
+// Debug helper
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('github')) {
     window.i18nDebug = {
         getCurrentLanguage: function() {
             const path = window.location.pathname;
+            if (path.includes('/en/')) return 'en';
             if (path.includes('/es/')) return 'es';
             if (path.includes('/hi/')) return 'hi';
             return 'en';
@@ -255,7 +267,33 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
             console.log('Current path:', window.location.pathname);
             console.log('Target language:', lang);
             console.log('Target page:', page);
-            console.log('Generated URL:', buildLanguageURL(lang, page || getCurrentPage()));
+            const buildLanguageURL = function(langCode, page) {
+                const currentPath = window.location.pathname;
+                const LANGUAGES = {
+                    'en': { dir: 'en/' },
+                    'es': { dir: 'es/' },
+                    'hi': { dir: 'hi/' }
+                };
+                const langDir = LANGUAGES[langCode].dir;
+                
+                let basePath = '';
+                const langMatch = currentPath.match(/^(.*)\/(?:en|es|hi)\//);
+                if (langMatch) {
+                    basePath = langMatch[1] + '/';
+                } else {
+                    const pathParts = currentPath.split('/');
+                    if (pathParts[pathParts.length - 1].includes('.html')) {
+                        pathParts.pop();
+                    }
+                    basePath = pathParts.join('/');
+                    if (!basePath.endsWith('/')) {
+                        basePath += '/';
+                    }
+                }
+                
+                return basePath + langDir + page;
+            };
+            console.log('Generated URL:', buildLanguageURL(lang, page || 'index.html'));
         }
     };
 }
