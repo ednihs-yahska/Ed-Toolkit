@@ -188,22 +188,6 @@ To test accessibility features:
 4. Add the language to Xcode project settings
 5. Test with the new language selected in System Preferences
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
-
-### Code Guidelines
-- Follow Swift naming conventions
-- Add accessibility support for all new UI elements
-- Include localization for all user-facing strings
-- Write unit tests for core functionality
-- Update documentation for new features
-
 ## Architecture
 
 Ed-Toolkit is built using:
@@ -219,10 +203,6 @@ Ed-Toolkit is built using:
 - **International**: Multi-language support from the ground up
 - **Testing**: Comprehensive test coverage for reliability
 - **Maintainable**: Clear code structure and documentation
-
-## License
-
-[Add your license information here]
 
 ## Support
 
