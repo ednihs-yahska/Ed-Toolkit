@@ -44,6 +44,13 @@ open Ed-Toolkit.xcodeproj
   - `JSONFormatterView.swift`: JSON formatter and viewer with interactive tree structure
   - `URLEncoderDecoderView.swift`: URL encoding/decoding utility
   - `DiffMatcherView.swift`: Text comparison tool with diff visualization
+  - `UIModifiers/`: Custom SwiftUI view modifiers
+    - `AccessibilityModifiers.swift`: Custom accessibility modifiers and view extensions
+  - `Localization/`: Internationalization and localization files
+    - `LocalizationHelper.swift`: Helper extension and structured string constants
+    - `en.lproj/Localizable.strings`: English localization (base language)
+    - `es.lproj/Localizable.strings`: Spanish localization
+    - `hi.lproj/Localizable.strings`: Hindi localization
   - `Assets.xcassets/`: Application assets and icons
   - `Ed_Toolkit.entitlements`: App capabilities and permissions
 
@@ -85,6 +92,168 @@ UI tests are implemented in `Ed-ToolkitUITests` using XCTest framework:
 - **Accessibility Tests**: Verify UI elements are accessible
 
 Note: UI tests may require app signing and proper test configuration to run successfully in all environments.
+
+## Accessibility Features
+
+The application implements comprehensive accessibility support following Apple's accessibility guidelines:
+
+### URLEncoderDecoderView Accessibility
+- **VoiceOver Support**: All interactive elements have descriptive labels and hints
+- **Accessibility Labels**: Clear, context-aware descriptions for all UI elements
+- **Accessibility Identifiers**: Unique identifiers for UI testing and assistive technologies
+- **Keyboard Navigation**: Keyboard shortcuts (⌘E for encode, ⌘D for decode)
+- **Dynamic Content**: Output field announces changes with character counts
+- **Error Feedback**: Specific announcements for failed operations
+- **Semantic Structure**: Proper grouping and traits for logical navigation
+
+### Accessibility Implementation Details
+- **Headers**: Main title marked with `.isHeader` trait
+- **Input Validation**: Clear feedback for empty or invalid input
+- **Result Announcements**: Success/failure messages for VoiceOver users
+- **Context-Aware Labels**: Labels change based on encode/decode mode
+- **Read-Only Indicators**: Output field clearly marked as non-editable
+- **Frequent Updates**: Output marked with `.updatesFrequently` trait
+
+### Keyboard Navigation & TextEditor Escape
+**Problem Solved**: TextEditor fields can trap keyboard users who can't exit using Tab key.
+
+**Solution Implemented**:
+- **Focus Management**: Complete `@FocusState` implementation for all interactive elements
+- **Initial Focus**: View opens with focus on input text area for immediate text entry
+- **Keyboard Shortcuts**: Global ⌘E/⌘D shortcuts work from anywhere in the interface
+- **Visual Instructions**: On-screen help text explains navigation options
+- **Logical Tab Order**: Proper focus flow between elements
+- **VoiceOver Integration**: Screen readers can navigate effectively
+- **Context-Aware Labels**: Input text area includes page title and keyboard shortcuts in accessibility label
+
+**Navigation Methods for Users**:
+1. **Processing Shortcuts**: ⌘E to encode, ⌘D to decode from any field
+2. **Mode Switching**: ⌘M to toggle between encode/decode modes
+3. **Quick Switch**: ⌘R to switch mode and process immediately
+4. **Standard Navigation**: Tab key works normally between non-text elements
+5. **Button Focus**: Users can click buttons to trigger actions
+6. **VoiceOver**: Full screen reader support with proper announcements
+
+### VoiceOver Help Text Issues Fixed
+**Problem**: VoiceOver was not reading keyboard shortcuts help text when elements were grouped.
+
+**Solutions Implemented**:
+1. **Title Accessibility Hint**: Keyboard shortcuts information added as accessibility hint to main title
+2. **Visual Help Text**: Subtitle remains visible as regular text for sighted users
+3. **Simplified Accessibility**: Removed complex button and invisible element approaches
+4. **Focused Accessibility**: All help information accessible when VoiceOver focuses on page title
+
+**How VoiceOver Users Can Access Help**:
+- **Navigate to title**: VoiceOver will read title with keyboard shortcuts as hint
+- **Automatic Announcement**: Shortcuts information provided immediately when title is focused
+- **No Extra Navigation**: Users don't need to find separate help elements
+
+### Custom Accessibility Modifiers
+
+**Location**: `UIModifiers/AccessibilityModifiers.swift`
+
+The application uses custom SwiftUI view modifiers to ensure consistent and maintainable accessibility implementation:
+
+#### **Generic Modifiers**:
+- **`pageHeaderAccessibility`**: For page titles with optional hints
+- **`textInputAccessibility`**: For text input fields with context-aware labels
+- **`actionButtonAccessibility`**: For action buttons with descriptive hints
+- **`outputFieldAccessibility`**: For read-only output fields with update traits
+- **`pickerAccessibility`**: For picker/segmented controls
+- **`decorativeTextAccessibility`**: For hiding decorative text from VoiceOver
+- **`mainViewAccessibility`**: For main view containers
+
+#### **URL Encoder/Decoder Specific Modifiers**:
+- **`urlEncoderInputAccessibility`**: Combines page title, context, and shortcuts for input field
+- **`urlEncoderOutputAccessibility`**: Handles dynamic output labeling based on mode
+- **`urlEncoderProcessButtonAccessibility`**: Context-aware button accessibility
+
+#### **Benefits**:
+- **Consistency**: All accessibility patterns standardized across the app
+- **Maintainability**: Single place to update accessibility behavior
+- **Reusability**: Easy to apply the same patterns to new views
+- **Type Safety**: Compile-time validation of accessibility parameters
+
+#### **Usage Example**:
+```swift
+Text("Page Title")
+    .pageHeaderAccessibility(
+        label: "Accessible Title",
+        hint: "Additional context for screen readers",
+        identifier: "unique.identifier"
+    )
+
+TextEditor(text: $inputText)
+    .urlEncoderInputAccessibility(
+        isEncoding: isEncoding,
+        pageTitle: pageTitle,
+        shortcuts: shortcutsHelp
+    )
+```
+
+### Testing Accessibility
+- Use VoiceOver (⌘F5) to test screen reader functionality
+- **Test Title with Hint**: Navigate to page title and verify VoiceOver reads keyboard shortcuts as hint
+- Use Accessibility Inspector to verify element properties
+- Test keyboard navigation with Tab and arrow keys
+- Test all keyboard shortcuts: ⌘E/⌘D (process), ⌘M (switch mode), ⌘R (switch & process)
+- Verify users can escape TextEditor fields using keyboard shortcuts
+- Test mode switching with smooth animations and VoiceOver announcements
+- Verify all interactive elements are properly labeled and accessible
+- **Test Initial Focus**: Verify view opens with focus on input text area
+- **Test Context Labels**: When focused on input, VoiceOver should announce page title and keyboard shortcuts
+- **Test Custom Modifiers**: Verify all custom accessibility modifiers work correctly
+
+## Localization
+
+The application is fully prepared for internationalization with comprehensive localization support:
+
+### Localization Structure
+- **Localization Directory**: All localization files organized in `Ed-Toolkit/Localization/`
+  - **LocalizationHelper.swift**: Helper extension and structured string constants
+  - **en.lproj/Localizable.strings**: English localization (base language)
+  - **es.lproj/Localizable.strings**: Spanish localization
+  - **hi.lproj/Localizable.strings**: Hindi localization
+- **Language Support**: Proper iOS/macOS localization structure with language-specific `.lproj` directories
+
+### URLEncoderDecoderView Localization
+All text strings have been extracted and localized:
+- **UI Labels**: Title, input/output labels, button text, mode picker
+- **Accessibility Content**: All VoiceOver labels, hints, and announcements
+- **Help Text**: Keyboard shortcuts and instructions
+- **Status Messages**: Success/failure announcements with dynamic content
+- **Dynamic Strings**: Character counts and formatted messages
+
+### Localization Implementation
+```swift
+// Simple strings
+Text(URLEncoderDecoderStrings.title)
+
+// Dynamic accessibility labels
+.accessibilityLabel(isEncoding ? URLEncoderDecoderStrings.Accessibility.textToEncode : URLEncoderDecoderStrings.Accessibility.textToDecode)
+
+// Formatted strings with parameters
+URLEncoderDecoderStrings.Status.encodedSuccess(characterCount: resultLength)
+```
+
+### Adding New Languages
+1. Create new language folder: `Localization/[language_code].lproj/` (e.g., `hi.lproj/` for Hindi)
+2. Copy `en.lproj/Localizable.strings` to new folder
+3. Translate all string values (keep keys unchanged)
+4. Add language to Xcode project settings
+5. Test with language selection in System Preferences
+
+### Supported Languages
+- **English** (`en`) - Base language
+- **Spanish** (`es`) - Complete translation
+- **Hindi** (`hi`) - Complete translation with Devanagari script
+- **Extensible** - Easy to add more languages using the same pattern
+
+### Benefits
+- **Maintainable**: All strings centralized in one location
+- **Accessible**: Full VoiceOver support in all languages
+- **Type-Safe**: Compile-time string validation through helper structures
+- **Scalable**: Easy to add new languages and update existing translations
 
 ## Component Documentation
 

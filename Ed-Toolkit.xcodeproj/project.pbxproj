@@ -29,9 +29,22 @@
 		A1E7C72C2E079A29001D2D9E /* Ed-ToolkitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Ed-ToolkitUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A17EEBB22E0888B0003624E5 /* Exceptions for "Ed-Toolkit" folder in "Ed-Toolkit" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CLAUDE.md,
+			);
+			target = A1E7C7132E079A28001D2D9E /* Ed-Toolkit */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A1E7C7162E079A28001D2D9E /* Ed-Toolkit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A17EEBB22E0888B0003624E5 /* Exceptions for "Ed-Toolkit" folder in "Ed-Toolkit" target */,
+			);
 			path = "Ed-Toolkit";
 			sourceTree = "<group>";
 		};
@@ -192,6 +205,8 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				hi,
 			);
 			mainGroup = A1E7C70B2E079A28001D2D9E;
 			minimizedProjectReferenceProxies = 1;

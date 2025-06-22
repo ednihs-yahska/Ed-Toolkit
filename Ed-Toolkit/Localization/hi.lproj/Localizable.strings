@@ -1,0 +1,62 @@
+/* 
+  Localizable.strings (Hindi)
+  Ed-Toolkit
+
+  Created by Akshay Shinde on 6/22/25.
+*/
+
+// MARK: - URL Encoder/Decoder View
+"url_encoder_decoder.title" = "URL एन्कोडर/डिकोडर";
+"url_encoder_decoder.input_label" = "इनपुट:";
+"url_encoder_decoder.output_label" = "आउटपुट:";
+"url_encoder_decoder.mode_label" = "मोड";
+"url_encoder_decoder.encode" = "एन्कोड";
+"url_encoder_decoder.decode" = "डिकोड";
+
+// MARK: - Keyboard Shortcuts
+"url_encoder_decoder.shortcuts_help" = "⌘E/⌘D: टेक्स्ट प्रोसेस करें • ⌘M: मोड बदलें • ⌘R: मोड बदलें और प्रोसेस करें";
+"url_encoder_decoder.shortcuts_help_accessibility" = "टेक्स्ट प्रोसेस करने के लिए कमांड E या कमांड D, एन्कोड और डिकोड मोड के बीच बदलने के लिए कमांड M, मोड बदलने और तुरंत प्रोसेस करने के लिए कमांड R";
+
+// MARK: - Accessibility Labels
+"url_encoder_decoder.accessibility.title" = "URL एन्कोडर और डिकोडर टूल";
+"url_encoder_decoder.accessibility.shortcuts_help" = "कीबोर्ड शॉर्टकट सहायता";
+"url_encoder_decoder.accessibility.mode_picker" = "प्रसंस्करण मोड";
+"url_encoder_decoder.accessibility.input_label" = "इनपुट टेक्स्ट";
+"url_encoder_decoder.accessibility.output_label" = "आउटपुट परिणाम";
+"url_encoder_decoder.accessibility.main_view" = "URL एन्कोडर डिकोडर";
+
+// MARK: - Accessibility Hints
+"url_encoder_decoder.accessibility.mode_hint" = "इनपुट टेक्स्ट को एन्कोड या डिकोड करना है इसे चुनें। मोड के बीच टॉगल करने के लिए कमांड M दबाएं।";
+"url_encoder_decoder.accessibility.input_hint_encode" = "जो टेक्स्ट आप URL एन्कोड करना चाहते हैं उसे दर्ज करें। एन्कोड करने के लिए कमांड+E, डिकोड मोड पर स्विच करने के लिए कमांड+M, या मोड बदलने और तुरंत प्रोसेस करने के लिए कमांड+R का उपयोग करें।";
+"url_encoder_decoder.accessibility.input_hint_decode" = "जो URL एन्कोडेड टेक्स्ट आप डिकोड करना चाहते हैं उसे दर्ज करें। डिकोड करने के लिए कमांड+D, एन्कोड मोड पर स्विच करने के लिए कमांड+M, या मोड बदलने और तुरंत प्रोसेस करने के लिए कमांड+R का उपयोग करें।";
+"url_encoder_decoder.accessibility.process_hint_encode" = "इनपुट टेक्स्ट को URL एन्कोडेड फॉर्मेट में बदलता है। आउटपुट फील्ड पर नेविगेट करने के लिए Tab का उपयोग करें।";
+"url_encoder_decoder.accessibility.process_hint_decode" = "URL एन्कोडेड इनपुट को वापस पढ़ने योग्य टेक्स्ट में बदलता है। आउटपुट फील्ड पर नेविगेट करने के लिए Tab का उपयोग करें।";
+"url_encoder_decoder.accessibility.output_hint" = "प्रोसेस किया गया आउटपुट। यह फील्ड केवल पढ़ने योग्य है और संपादन योग्य नहीं है।";
+
+// MARK: - Accessibility Values and Labels
+"url_encoder_decoder.accessibility.text_to_encode" = "एन्कोड करने के लिए टेक्स्ट";
+"url_encoder_decoder.accessibility.text_to_decode" = "डिकोड करने के लिए टेक्स्ट";
+"url_encoder_decoder.accessibility.encoded_result" = "एन्कोडेड परिणाम";
+"url_encoder_decoder.accessibility.decoded_result" = "डिकोडेड परिणाम";
+"url_encoder_decoder.accessibility.encode_button" = "टेक्स्ट एन्कोड करें";
+"url_encoder_decoder.accessibility.decode_button" = "टेक्स्ट डिकोड करें";
+"url_encoder_decoder.accessibility.no_output" = "अभी तक कोई आउटपुट नहीं";
+
+// MARK: - Status Announcements
+"url_encoder_decoder.status.switched_to_encode" = "एन्कोड मोड पर स्विच किया गया";
+"url_encoder_decoder.status.switched_to_decode" = "डिकोड मोड पर स्विच किया गया";
+"url_encoder_decoder.status.encoded_success" = "टेक्स्ट सफलतापूर्वक एन्कोड किया गया, परिणाम में %d अक्षर हैं";
+"url_encoder_decoder.status.decoded_success" = "टेक्स्ट सफलतापूर्वक डिकोड किया गया, परिणाम में %d अक्षर हैं";
+"url_encoder_decoder.status.encoding_failed" = "एन्कोडिंग विफल";
+"url_encoder_decoder.status.decoding_failed" = "डिकोडिंग विफल - अमान्य इनपुट";
+"url_encoder_decoder.status.no_input" = "प्रोसेस करने के लिए कोई इनपुट नहीं";
+
+// MARK: - Button Labels (Hidden shortcuts)
+"url_encoder_decoder.switch_mode" = "मोड बदलें";
+"url_encoder_decoder.switch_and_process" = "मोड बदलें और प्रोसेस करें";
+
+// MARK: - Accessibility Actions
+"url_encoder_decoder.action.show_shortcuts" = "कीबोर्ड शॉर्टकट दिखाएं";
+"url_encoder_decoder.action.repeat_shortcuts" = "शॉर्टकट दोहराएं";
+"url_encoder_decoder.accessibility.help_info" = "सहायता जानकारी";
+"url_encoder_decoder.accessibility.shortcuts_available" = "उपलब्ध कीबोर्ड शॉर्टकट: टेक्स्ट एन्कोड करने के लिए कमांड E, टेक्स्ट डिकोड करने के लिए कमांड D, एन्कोड और डिकोड मोड के बीच स्विच करने के लिए कमांड M, मोड बदलने और तुरंत टेक्स्ट प्रोसेस करने के लिए कमांड R";

@@ -1,0 +1,62 @@
+/* 
+  Localizable.strings (Spanish)
+  Ed-Toolkit
+
+  Created by Akshay Shinde on 6/22/25.
+*/
+
+// MARK: - URL Encoder/Decoder View
+"url_encoder_decoder.title" = "Codificador/Decodificador de URL";
+"url_encoder_decoder.input_label" = "Entrada:";
+"url_encoder_decoder.output_label" = "Salida:";
+"url_encoder_decoder.mode_label" = "Modo";
+"url_encoder_decoder.encode" = "Codificar";
+"url_encoder_decoder.decode" = "Decodificar";
+
+// MARK: - Keyboard Shortcuts
+"url_encoder_decoder.shortcuts_help" = "⌘E/⌘D: Procesar texto • ⌘M: Cambiar modo • ⌘R: Cambiar y procesar";
+"url_encoder_decoder.shortcuts_help_accessibility" = "Comando E o Comando D para procesar texto, Comando M para cambiar entre modos de codificación y decodificación, Comando R para cambiar modo y procesar inmediatamente";
+
+// MARK: - Accessibility Labels
+"url_encoder_decoder.accessibility.title" = "Herramienta de Codificador y Decodificador de URL";
+"url_encoder_decoder.accessibility.shortcuts_help" = "Ayuda de atajos de teclado";
+"url_encoder_decoder.accessibility.mode_picker" = "Modo de procesamiento";
+"url_encoder_decoder.accessibility.input_label" = "Texto de entrada";
+"url_encoder_decoder.accessibility.output_label" = "Resultado de salida";
+"url_encoder_decoder.accessibility.main_view" = "Codificador Decodificador de URL";
+
+// MARK: - Accessibility Hints
+"url_encoder_decoder.accessibility.mode_hint" = "Elija si codificar o decodificar el texto de entrada. Presione Comando M para alternar entre modos.";
+"url_encoder_decoder.accessibility.input_hint_encode" = "Ingrese el texto que desea codificar en URL. Use Comando+E para codificar, Comando+M para cambiar al modo de decodificación, o Comando+R para cambiar modo y procesar inmediatamente.";
+"url_encoder_decoder.accessibility.input_hint_decode" = "Ingrese el texto codificado en URL que desea decodificar. Use Comando+D para decodificar, Comando+M para cambiar al modo de codificación, o Comando+R para cambiar modo y procesar inmediatamente.";
+"url_encoder_decoder.accessibility.process_hint_encode" = "Convierte el texto de entrada al formato codificado de URL. Use Tab para navegar al campo de salida.";
+"url_encoder_decoder.accessibility.process_hint_decode" = "Convierte la entrada codificada de URL de vuelta a texto legible. Use Tab para navegar al campo de salida.";
+"url_encoder_decoder.accessibility.output_hint" = "La salida procesada. Este campo es de solo lectura y no se puede editar.";
+
+// MARK: - Accessibility Values and Labels
+"url_encoder_decoder.accessibility.text_to_encode" = "Texto para codificar";
+"url_encoder_decoder.accessibility.text_to_decode" = "Texto para decodificar";
+"url_encoder_decoder.accessibility.encoded_result" = "Resultado codificado";
+"url_encoder_decoder.accessibility.decoded_result" = "Resultado decodificado";
+"url_encoder_decoder.accessibility.encode_button" = "Codificar texto";
+"url_encoder_decoder.accessibility.decode_button" = "Decodificar texto";
+"url_encoder_decoder.accessibility.no_output" = "Aún no hay salida";
+
+// MARK: - Status Announcements
+"url_encoder_decoder.status.switched_to_encode" = "Cambiado al modo de codificación";
+"url_encoder_decoder.status.switched_to_decode" = "Cambiado al modo de decodificación";
+"url_encoder_decoder.status.encoded_success" = "Texto codificado exitosamente, el resultado tiene %d caracteres";
+"url_encoder_decoder.status.decoded_success" = "Texto decodificado exitosamente, el resultado tiene %d caracteres";
+"url_encoder_decoder.status.encoding_failed" = "Falló la codificación";
+"url_encoder_decoder.status.decoding_failed" = "Falló la decodificación - entrada inválida";
+"url_encoder_decoder.status.no_input" = "No hay entrada para procesar";
+
+// MARK: - Button Labels (Hidden shortcuts)
+"url_encoder_decoder.switch_mode" = "Cambiar Modo";
+"url_encoder_decoder.switch_and_process" = "Cambiar y Procesar";
+
+// MARK: - Accessibility Actions
+"url_encoder_decoder.action.show_shortcuts" = "Mostrar atajos de teclado";
+"url_encoder_decoder.action.repeat_shortcuts" = "Repetir atajos";
+"url_encoder_decoder.accessibility.help_info" = "Información de ayuda";
+"url_encoder_decoder.accessibility.shortcuts_available" = "Atajos de teclado disponibles: Comando E para codificar texto, Comando D para decodificar texto, Comando M para cambiar entre modos de codificación y decodificación, Comando R para cambiar modo y procesar texto inmediatamente";
