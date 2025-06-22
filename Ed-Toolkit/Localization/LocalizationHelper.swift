@@ -147,3 +147,84 @@ struct DiffMatcherStrings {
         return "diff_matcher.diff_summary".localized(with: additions, deletions)
     }
 }
+
+// MARK: - JSON Formatter Localized Strings
+struct JSONFormatterStrings {
+    // MARK: - UI Labels
+    static let title = "json_formatter.title".localized
+    static let subtitle = "json_formatter.subtitle".localized
+    static let inputLabel = "json_formatter.input_label".localized
+    static let structureLabel = "json_formatter.structure_label".localized
+    static let placeholderText = "json_formatter.placeholder_text".localized
+    
+    // MARK: - Error Messages
+    static let invalidInput = "json_formatter.invalid_input".localized
+    static let invalidJSONPrefix = "json_formatter.invalid_json_prefix".localized
+    
+    // MARK: - JSON Types
+    static let objectType = "json_formatter.object_type".localized
+    static let arrayType = "json_formatter.array_type".localized
+    static let stringType = "json_formatter.string_type".localized
+    static let numberType = "json_formatter.number_type".localized
+    static let booleanType = "json_formatter.boolean_type".localized
+    static let nullType = "json_formatter.null_type".localized
+    
+    // MARK: - Actions
+    static let expand = "json_formatter.expand".localized
+    static let collapse = "json_formatter.collapse".localized
+    static let expandAll = "json_formatter.expand_all".localized
+    static let collapseAll = "json_formatter.collapse_all".localized
+    static let clear = "json_formatter.clear".localized
+    static let format = "json_formatter.format".localized
+    
+    // MARK: - Accessibility Labels
+    struct Accessibility {
+        static let title = "json_formatter.accessibility.title".localized
+        static let subtitle = "json_formatter.accessibility.subtitle".localized
+        static let inputEditor = "json_formatter.accessibility.input_editor".localized
+        static let structureView = "json_formatter.accessibility.structure_view".localized
+        static let errorView = "json_formatter.accessibility.error_view".localized
+        static let placeholderView = "json_formatter.accessibility.placeholder_view".localized
+        static let mainView = "json_formatter.accessibility.main_view".localized
+        
+        // MARK: - Node Accessibility
+        static let expandButton = "json_formatter.accessibility.expand_button".localized
+        static let collapseButton = "json_formatter.accessibility.collapse_button".localized
+        static let jsonNode = "json_formatter.accessibility.json_node".localized
+        static let objectNode = "json_formatter.accessibility.object_node".localized
+        static let arrayNode = "json_formatter.accessibility.array_node".localized
+        static let valueNode = "json_formatter.accessibility.value_node".localized
+        
+        // MARK: - Hints
+        static let inputHint = "json_formatter.accessibility.input_hint".localized
+        static let structureHint = "json_formatter.accessibility.structure_hint".localized
+        static let nodeHint = "json_formatter.accessibility.node_hint".localized
+        static let expandHint = "json_formatter.accessibility.expand_hint".localized
+        static let collapseHint = "json_formatter.accessibility.collapse_hint".localized
+        
+        // MARK: - Status Messages
+        static let jsonParsed = "json_formatter.accessibility.json_parsed".localized
+        static let parseError = "json_formatter.accessibility.parse_error".localized
+        static let emptyInput = "json_formatter.accessibility.empty_input".localized
+        
+        // MARK: - Keyboard Shortcuts
+        static let keyboardShortcuts = "json_formatter.accessibility.keyboard_shortcuts".localized
+    }
+    
+    // MARK: - Dynamic Content
+    static func objectCount(_ count: Int) -> String {
+        return "json_formatter.object_count".localized(with: count)
+    }
+    
+    static func arrayCount(_ count: Int) -> String {
+        return "json_formatter.array_count".localized(with: count)
+    }
+    
+    static func nodeDescription(key: String?, type: String) -> String {
+        if let key = key {
+            return "json_formatter.node_with_key".localized(with: key, type)
+        } else {
+            return "json_formatter.node_without_key".localized(with: type)
+        }
+    }
+}

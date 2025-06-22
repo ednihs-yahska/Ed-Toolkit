@@ -102,3 +102,66 @@
 "diff_matcher.accessibility.all_text_cleared" = "सभी टेक्स्ट साफ कर दिया गया";
 "diff_matcher.accessibility.texts_swapped" = "टेक्स्ट क्षेत्र अदला-बदली की गई";
 "diff_matcher.accessibility.keyboard_shortcuts" = "⌘R: टेक्स्ट तुलना करें • ⌘B: इनपुट पर वापस • ⌘K: सभी साफ करें • ⌘S: टेक्स्ट अदला-बदली करें • ⌘⌥→/←: टेक्स्ट क्षेत्रों के बीच नेविगेट करें";
+
+// MARK: - JSON Formatter View
+"json_formatter.title" = "JSON फॉर्मेटर";
+"json_formatter.subtitle" = "JSON संरचना का विश्लेषण और दृश्यीकरण करें";
+"json_formatter.input_label" = "JSON इनपुट";
+"json_formatter.structure_label" = "JSON संरचना";
+"json_formatter.placeholder_text" = "संरचना देखने के लिए JSON पेस्ट करें";
+
+// MARK: - JSON Formatter Error Messages
+"json_formatter.invalid_input" = "अमान्य इनपुट";
+"json_formatter.invalid_json_prefix" = "अमान्य JSON:";
+
+// MARK: - JSON Formatter Types
+"json_formatter.object_type" = "ऑब्जेक्ट";
+"json_formatter.array_type" = "ऐरे";
+"json_formatter.string_type" = "स्ट्रिंग";
+"json_formatter.number_type" = "संख्या";
+"json_formatter.boolean_type" = "बूलियन";
+"json_formatter.null_type" = "नल";
+
+// MARK: - JSON Formatter Actions
+"json_formatter.expand" = "विस्तृत करें";
+"json_formatter.collapse" = "संक्षिप्त करें";
+"json_formatter.expand_all" = "सभी विस्तृत करें";
+"json_formatter.collapse_all" = "सभी संक्षिप्त करें";
+"json_formatter.clear" = "साफ़ करें";
+"json_formatter.format" = "फॉर्मेट करें";
+
+// MARK: - JSON Formatter Dynamic Content
+"json_formatter.object_count" = "%d गुणों वाला ऑब्जेक्ट";
+"json_formatter.array_count" = "%d आइटमों वाला ऐरे";
+"json_formatter.node_with_key" = "कुंजी %@ जिसमें %@ है";
+"json_formatter.node_without_key" = "रूट %@";
+
+// MARK: - JSON Formatter Accessibility
+"json_formatter.accessibility.title" = "JSON पार्सर और फॉर्मेटर टूल";
+"json_formatter.accessibility.subtitle" = "JSON संरचना का विश्लेषण और दृश्यीकरण करें";
+"json_formatter.accessibility.input_editor" = "JSON इनपुट टेक्स्ट क्षेत्र";
+"json_formatter.accessibility.structure_view" = "JSON संरचना ट्री व्यू";
+"json_formatter.accessibility.error_view" = "JSON पार्सिंग त्रुटि संदेश";
+"json_formatter.accessibility.placeholder_view" = "खाली स्थिति प्लेसहोल्डर";
+"json_formatter.accessibility.main_view" = "JSON फॉर्मेटर";
+
+// MARK: - JSON Formatter Node Accessibility
+"json_formatter.accessibility.expand_button" = "नोड विस्तृत करें";
+"json_formatter.accessibility.collapse_button" = "नोड संक्षिप्त करें";
+"json_formatter.accessibility.json_node" = "JSON नोड";
+"json_formatter.accessibility.object_node" = "JSON ऑब्जेक्ट";
+"json_formatter.accessibility.array_node" = "JSON ऐरे";
+"json_formatter.accessibility.value_node" = "JSON वैल्यू";
+
+// MARK: - JSON Formatter Accessibility Hints
+"json_formatter.accessibility.input_hint" = "JSON टेक्स्ट दर्ज करें या पेस्ट करें ताकि इसकी संरचना का विश्लेषण और दृश्यीकरण हो सके। रियल-टाइम पार्सिंग तुरंत परिणाम दिखाएगी।";
+"json_formatter.accessibility.structure_hint" = "JSON संरचना में नेविगेट करें। ऑब्जेक्ट्स और ऐरे को विस्तृत या संक्षिप्त किया जा सकता है।";
+"json_formatter.accessibility.node_hint" = "इस नोड को विस्तृत या संक्षिप्त करने के लिए क्लिक करें या स्पेस दबाएं।";
+"json_formatter.accessibility.expand_hint" = "चाइल्ड एलिमेंट्स दिखाने के लिए विस्तृत करें।";
+"json_formatter.accessibility.collapse_hint" = "चाइल्ड एलिमेंट्स छुपाने के लिए संक्षिप्त करें।";
+
+// MARK: - JSON Formatter Status Messages
+"json_formatter.accessibility.json_parsed" = "JSON सफलतापूर्वक पार्स किया गया";
+"json_formatter.accessibility.parse_error" = "JSON पार्सिंग असफल";
+"json_formatter.accessibility.empty_input" = "कोई JSON इनपुट प्रदान नहीं किया गया";
+"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: इनपुट साफ़ करें • ⌘F: JSON फॉर्मेट करें • स्पेस: नोड विस्तृत/संक्षिप्त करें";

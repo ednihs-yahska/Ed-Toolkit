@@ -11,65 +11,167 @@ struct JSONFormatterView: View {
     @State private var inputJSON = ""
     @State private var parsedJSON: Any?
     @State private var errorMessage = ""
+    @State private var lastActionAnnouncement = ""
+    @FocusState private var focusedField: FocusedField?
+    
+    enum FocusedField: Hashable {
+        case inputEditor
+        case structureView
+    }
     
     var body: some View {
-        HSplitView {
-            // Left side - Input
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Input JSON")
-                    .font(.headline)
-                    .padding(.horizontal)
+        VStack(spacing: 0) {
+            // Header
+            VStack(spacing: 10) {
+                Text(JSONFormatterStrings.title)
+                    .font(.largeTitle)
                     .padding(.top)
+                    .pageHeaderAccessibility(
+                        label: JSONFormatterStrings.Accessibility.title,
+                        hint: keyboardShortcutsHint,
+                        identifier: "JSONFormatter.title"
+                    )
                 
-                TextEditor(text: $inputJSON)
-                    .font(.system(.body, design: .monospaced))
-                    .padding(4)
-                    .background(Color(NSColor.textBackgroundColor))
-                    .onChange(of: inputJSON) { _, newValue in
-                        parseJSON(newValue)
-                    }
+                Text(JSONFormatterStrings.subtitle)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .decorativeTextAccessibility()
+            }
+            .padding(.bottom)
+            
+            HSplitView {
+                // Left side - Input
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(JSONFormatterStrings.inputLabel)
+                        .font(.headline)
+                        .padding(.horizontal)
+                        .padding(.top)
+                        .accessibilityLabel(JSONFormatterStrings.inputLabel)
+                        .accessibilityIdentifier("JSONFormatter.inputLabel")
+                
+                    TextEditor(text: $inputJSON)
+                        .font(.system(.body, design: .monospaced))
+                        .padding(4)
+                        .background(Color(NSColor.textBackgroundColor))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
+                        )
+                        .padding(.horizontal)
+                        .focused($focusedField, equals: .inputEditor)
+                        .textInputAccessibility(
+                            label: JSONFormatterStrings.Accessibility.inputEditor,
+                            hint: JSONFormatterStrings.Accessibility.inputHint,
+                            identifier: "JSONFormatter.inputEditor"
+                        )
+                        .onChange(of: inputJSON) { _, newValue in
+                            parseJSON(newValue)
+                        }
             }
             .frame(minWidth: 300)
             
-            // Right side - Outline View
-            VStack(alignment: .leading, spacing: 10) {
-                Text("JSON Structure")
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .padding(.top)
+                // Right side - Outline View
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(JSONFormatterStrings.structureLabel)
+                        .font(.headline)
+                        .padding(.horizontal)
+                        .padding(.top)
+                        .accessibilityLabel(JSONFormatterStrings.structureLabel)
+                        .accessibilityIdentifier("JSONFormatter.structureLabel")
                 
-                if let parsedJSON = parsedJSON {
-                    ScrollView {
-                        JSONOutlineView(json: parsedJSON)
-                            .padding()
+                    if let parsedJSON = parsedJSON {
+                        ScrollView {
+                            JSONOutlineView(json: parsedJSON)
+                                .padding()
+                        }
+                        .background(Color(NSColor.textBackgroundColor))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
+                        .focused($focusedField, equals: .structureView)
+                        .accessibilityElement(children: .contain)
+                        .accessibilityLabel(JSONFormatterStrings.Accessibility.structureView)
+                        .accessibilityHint(JSONFormatterStrings.Accessibility.structureHint)
+                        .accessibilityIdentifier("JSONFormatter.structureView")
+                    } else if !errorMessage.isEmpty {
+                        VStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .font(.largeTitle)
+                                .foregroundColor(.orange)
+                            Text(errorMessage)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color(NSColor.textBackgroundColor))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(JSONFormatterStrings.Accessibility.errorView)
+                        .accessibilityValue(errorMessage)
+                        .accessibilityIdentifier("JSONFormatter.errorView")
+                    } else {
+                        VStack {
+                            Image(systemName: "doc.text")
+                                .font(.largeTitle)
+                                .foregroundColor(.secondary)
+                            Text(JSONFormatterStrings.placeholderText)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color(NSColor.textBackgroundColor))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(JSONFormatterStrings.Accessibility.placeholderView)
+                        .accessibilityHint(JSONFormatterStrings.placeholderText)
+                        .accessibilityIdentifier("JSONFormatter.placeholderView")
                     }
-                    .background(Color(NSColor.textBackgroundColor))
-                } else if !errorMessage.isEmpty {
-                    VStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .font(.largeTitle)
-                            .foregroundColor(.orange)
-                        Text(errorMessage)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(NSColor.textBackgroundColor))
-                } else {
-                    VStack {
-                        Image(systemName: "doc.text")
-                            .font(.largeTitle)
-                            .foregroundColor(.secondary)
-                        Text("Paste JSON to see structure")
-                            .foregroundColor(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(NSColor.textBackgroundColor))
                 }
+                .frame(minWidth: 300)
             }
-            .frame(minWidth: 300)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .mainViewAccessibility(
+            label: JSONFormatterStrings.Accessibility.mainView,
+            identifier: "JSONFormatter.mainView"
+        )
+        .onAppear {
+            // Set initial focus to input editor
+            focusedField = .inputEditor
+        }
+        .accessibilityAction(.default) {
+            lastActionAnnouncement = keyboardShortcutsHint
+        }
+        .accessibilityAction(named: "Show keyboard shortcuts") {
+            lastActionAnnouncement = keyboardShortcutsHint
+        }
+        // Hidden keyboard shortcuts
+        .overlay(
+            HStack {
+                // Clear input
+                Button("Clear Input") {
+                    clearInput()
+                }
+                .keyboardShortcut("k", modifiers: .command)
+                .opacity(0)
+                .frame(width: 0, height: 0)
+                .accessibilityHidden(true)
+                
+                // Format JSON
+                Button("Format JSON") {
+                    formatJSON()
+                }
+                .keyboardShortcut("f", modifiers: .command)
+                .opacity(0)
+                .frame(width: 0, height: 0)
+                .accessibilityHidden(true)
+            }
+        )
+    }
+    
+    private var keyboardShortcutsHint: String {
+        JSONFormatterStrings.Accessibility.keyboardShortcuts
     }
     
     func parseJSON(_ jsonString: String) {
@@ -81,15 +183,44 @@ struct JSONFormatterView: View {
         }
         
         guard let data = jsonString.data(using: .utf8) else {
-            errorMessage = "Invalid input"
+            errorMessage = JSONFormatterStrings.invalidInput
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
             return
         }
         
         do {
             parsedJSON = try JSONSerialization.jsonObject(with: data, options: [])
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.jsonParsed
         } catch {
-            errorMessage = "Invalid JSON: \(error.localizedDescription)"
+            errorMessage = "\(JSONFormatterStrings.invalidJSONPrefix) \(error.localizedDescription)"
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
         }
+    }
+    
+    func clearInput() {
+        inputJSON = ""
+        parsedJSON = nil
+        errorMessage = ""
+        focusedField = .inputEditor
+        lastActionAnnouncement = "Input cleared"
+    }
+    
+    func formatJSON() {
+        guard !inputJSON.isEmpty else {
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.emptyInput
+            return
+        }
+        
+        guard let data = inputJSON.data(using: .utf8),
+              let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+              let formattedData = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]),
+              let formattedString = String(data: formattedData, encoding: .utf8) else {
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
+            return
+        }
+        
+        inputJSON = formattedString
+        lastActionAnnouncement = "JSON formatted"
     }
 }
 
@@ -130,6 +261,11 @@ struct JSONNodeView: View {
                             .frame(width: 12, height: 12)
                     }
                     .buttonStyle(.plain)
+                    .actionButtonAccessibility(
+                        label: isExpanded ? JSONFormatterStrings.Accessibility.collapseButton : JSONFormatterStrings.Accessibility.expandButton,
+                        hint: isExpanded ? JSONFormatterStrings.Accessibility.collapseHint : JSONFormatterStrings.Accessibility.expandHint,
+                        identifier: "JSONFormatter.toggleButton.\(path)"
+                    )
                 } else {
                     Spacer()
                         .frame(width: 16)
@@ -147,27 +283,39 @@ struct JSONNodeView: View {
                     Text("{\(dict.count)}")
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.secondary)
+                        .accessibilityLabel(JSONFormatterStrings.objectCount(dict.count))
+                        .accessibilityAddTraits(.isStaticText)
                 } else if let array = value as? [Any] {
                     Text("[\(array.count)]")
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.secondary)
+                        .accessibilityLabel(JSONFormatterStrings.arrayCount(array.count))
+                        .accessibilityAddTraits(.isStaticText)
                 } else if let string = value as? String {
                     Text("\"\(string)\"")
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.green)
                         .lineLimit(1)
+                        .accessibilityLabel("\(JSONFormatterStrings.stringType): \(string)")
+                        .accessibilityAddTraits(.isStaticText)
                 } else if let number = value as? NSNumber {
                     Text(number.stringValue)
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.orange)
+                        .accessibilityLabel("\(JSONFormatterStrings.numberType): \(number.stringValue)")
+                        .accessibilityAddTraits(.isStaticText)
                 } else if value is NSNull {
                     Text("null")
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.red)
+                        .accessibilityLabel(JSONFormatterStrings.nullType)
+                        .accessibilityAddTraits(.isStaticText)
                 } else if let bool = value as? Bool {
                     Text(bool ? "true" : "false")
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.purple)
+                        .accessibilityLabel("\(JSONFormatterStrings.booleanType): \(bool ? "true" : "false")")
+                        .accessibilityAddTraits(.isStaticText)
                 }
                 
                 Spacer()
@@ -178,6 +326,12 @@ struct JSONNodeView: View {
                     toggleExpanded()
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(value is [String: Any] || value is [Any] ? .isButton : .isStaticText)
+            .accessibilityLabel(accessibilityNodeDescription)
+            .accessibilityHint(value is [String: Any] || value is [Any] ? JSONFormatterStrings.Accessibility.nodeHint : "")
+            .accessibilityIdentifier("JSONFormatter.node.\(path)")
+            .keyboardShortcut(.space, modifiers: [])
             
             // Children
             if isExpanded {
@@ -214,6 +368,28 @@ struct JSONNodeView: View {
         } else {
             expandedItems.insert(path)
         }
+    }
+    
+    private var accessibilityNodeDescription: String {
+        let nodeTypeDescription: String
+        
+        if let dict = value as? [String: Any] {
+            nodeTypeDescription = JSONFormatterStrings.objectCount(dict.count)
+        } else if let array = value as? [Any] {
+            nodeTypeDescription = JSONFormatterStrings.arrayCount(array.count)
+        } else if let string = value as? String {
+            nodeTypeDescription = "\(JSONFormatterStrings.stringType): \(string)"
+        } else if let number = value as? NSNumber {
+            nodeTypeDescription = "\(JSONFormatterStrings.numberType): \(number.stringValue)"
+        } else if value is NSNull {
+            nodeTypeDescription = JSONFormatterStrings.nullType
+        } else if let bool = value as? Bool {
+            nodeTypeDescription = "\(JSONFormatterStrings.booleanType): \(bool ? "true" : "false")"
+        } else {
+            nodeTypeDescription = "Unknown type"
+        }
+        
+        return JSONFormatterStrings.nodeDescription(key: key, type: nodeTypeDescription)
     }
 }
 

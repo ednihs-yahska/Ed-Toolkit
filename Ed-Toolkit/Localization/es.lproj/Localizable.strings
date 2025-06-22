@@ -102,3 +102,66 @@
 "diff_matcher.accessibility.all_text_cleared" = "Todo el texto eliminado";
 "diff_matcher.accessibility.texts_swapped" = "Áreas de texto intercambiadas";
 "diff_matcher.accessibility.keyboard_shortcuts" = "⌘R: Comparar textos • ⌘B: Volver a entrada • ⌘K: Limpiar todo • ⌘S: Intercambiar textos • ⌘⌥→/←: Navegar entre áreas de texto";
+
+// MARK: - JSON Formatter View
+"json_formatter.title" = "Formateador JSON";
+"json_formatter.subtitle" = "Analizar y visualizar estructura JSON";
+"json_formatter.input_label" = "JSON de Entrada";
+"json_formatter.structure_label" = "Estructura JSON";
+"json_formatter.placeholder_text" = "Pegar JSON para ver estructura";
+
+// MARK: - JSON Formatter Error Messages
+"json_formatter.invalid_input" = "Entrada inválida";
+"json_formatter.invalid_json_prefix" = "JSON inválido:";
+
+// MARK: - JSON Formatter Types
+"json_formatter.object_type" = "Objeto";
+"json_formatter.array_type" = "Array";
+"json_formatter.string_type" = "Cadena";
+"json_formatter.number_type" = "Número";
+"json_formatter.boolean_type" = "Booleano";
+"json_formatter.null_type" = "Nulo";
+
+// MARK: - JSON Formatter Actions
+"json_formatter.expand" = "Expandir";
+"json_formatter.collapse" = "Contraer";
+"json_formatter.expand_all" = "Expandir Todo";
+"json_formatter.collapse_all" = "Contraer Todo";
+"json_formatter.clear" = "Limpiar";
+"json_formatter.format" = "Formatear";
+
+// MARK: - JSON Formatter Dynamic Content
+"json_formatter.object_count" = "Objeto con %d propiedades";
+"json_formatter.array_count" = "Array con %d elementos";
+"json_formatter.node_with_key" = "Clave %@ conteniendo %@";
+"json_formatter.node_without_key" = "%@ raíz";
+
+// MARK: - JSON Formatter Accessibility
+"json_formatter.accessibility.title" = "Herramienta de Analizador y Formateador JSON";
+"json_formatter.accessibility.subtitle" = "Analizar y visualizar estructura JSON";
+"json_formatter.accessibility.input_editor" = "Área de texto de entrada JSON";
+"json_formatter.accessibility.structure_view" = "Vista de árbol de estructura JSON";
+"json_formatter.accessibility.error_view" = "Mensaje de error de análisis JSON";
+"json_formatter.accessibility.placeholder_view" = "Marcador de posición de estado vacío";
+"json_formatter.accessibility.main_view" = "Formateador JSON";
+
+// MARK: - JSON Formatter Node Accessibility
+"json_formatter.accessibility.expand_button" = "Expandir nodo";
+"json_formatter.accessibility.collapse_button" = "Contraer nodo";
+"json_formatter.accessibility.json_node" = "Nodo JSON";
+"json_formatter.accessibility.object_node" = "Objeto JSON";
+"json_formatter.accessibility.array_node" = "Array JSON";
+"json_formatter.accessibility.value_node" = "Valor JSON";
+
+// MARK: - JSON Formatter Accessibility Hints
+"json_formatter.accessibility.input_hint" = "Ingrese o pegue texto JSON para analizar y visualizar su estructura. El análisis en tiempo real mostrará resultados inmediatamente.";
+"json_formatter.accessibility.structure_hint" = "Navegue a través de la estructura JSON. Los objetos y arrays se pueden expandir o contraer.";
+"json_formatter.accessibility.node_hint" = "Haga clic o presione Espacio para expandir o contraer este nodo.";
+"json_formatter.accessibility.expand_hint" = "Expandir para mostrar elementos hijos.";
+"json_formatter.accessibility.collapse_hint" = "Contraer para ocultar elementos hijos.";
+
+// MARK: - JSON Formatter Status Messages
+"json_formatter.accessibility.json_parsed" = "JSON analizado exitosamente";
+"json_formatter.accessibility.parse_error" = "Falló el análisis JSON";
+"json_formatter.accessibility.empty_input" = "No se proporcionó entrada JSON";
+"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: Limpiar entrada • ⌘F: Formatear JSON • Espacio: Expandir/contraer nodo";

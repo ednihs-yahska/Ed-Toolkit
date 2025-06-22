@@ -102,3 +102,66 @@
 "diff_matcher.accessibility.all_text_cleared" = "All text cleared";
 "diff_matcher.accessibility.texts_swapped" = "Text areas swapped";
 "diff_matcher.accessibility.keyboard_shortcuts" = "⌘R: Compare texts • ⌘B: Back to input • ⌘K: Clear all • ⌘S: Swap texts • ⌘⌥→/←: Navigate between text areas";
+
+// MARK: - JSON Formatter View
+"json_formatter.title" = "JSON Formatter";
+"json_formatter.subtitle" = "Parse and visualize JSON structure";
+"json_formatter.input_label" = "Input JSON";
+"json_formatter.structure_label" = "JSON Structure";
+"json_formatter.placeholder_text" = "Paste JSON to see structure";
+
+// MARK: - JSON Formatter Error Messages
+"json_formatter.invalid_input" = "Invalid input";
+"json_formatter.invalid_json_prefix" = "Invalid JSON:";
+
+// MARK: - JSON Formatter Types
+"json_formatter.object_type" = "Object";
+"json_formatter.array_type" = "Array";
+"json_formatter.string_type" = "String";
+"json_formatter.number_type" = "Number";
+"json_formatter.boolean_type" = "Boolean";
+"json_formatter.null_type" = "Null";
+
+// MARK: - JSON Formatter Actions
+"json_formatter.expand" = "Expand";
+"json_formatter.collapse" = "Collapse";
+"json_formatter.expand_all" = "Expand All";
+"json_formatter.collapse_all" = "Collapse All";
+"json_formatter.clear" = "Clear";
+"json_formatter.format" = "Format";
+
+// MARK: - JSON Formatter Dynamic Content
+"json_formatter.object_count" = "Object with %d properties";
+"json_formatter.array_count" = "Array with %d items";
+"json_formatter.node_with_key" = "%@ key containing %@";
+"json_formatter.node_without_key" = "Root %@";
+
+// MARK: - JSON Formatter Accessibility
+"json_formatter.accessibility.title" = "JSON Parser and Formatter Tool";
+"json_formatter.accessibility.subtitle" = "Parse and visualize JSON structure";
+"json_formatter.accessibility.input_editor" = "JSON input text area";
+"json_formatter.accessibility.structure_view" = "JSON structure tree view";
+"json_formatter.accessibility.error_view" = "JSON parsing error message";
+"json_formatter.accessibility.placeholder_view" = "Empty state placeholder";
+"json_formatter.accessibility.main_view" = "JSON Formatter";
+
+// MARK: - JSON Formatter Node Accessibility
+"json_formatter.accessibility.expand_button" = "Expand node";
+"json_formatter.accessibility.collapse_button" = "Collapse node";
+"json_formatter.accessibility.json_node" = "JSON node";
+"json_formatter.accessibility.object_node" = "JSON object";
+"json_formatter.accessibility.array_node" = "JSON array";
+"json_formatter.accessibility.value_node" = "JSON value";
+
+// MARK: - JSON Formatter Accessibility Hints
+"json_formatter.accessibility.input_hint" = "Enter or paste JSON text to parse and visualize its structure. Real-time parsing will show results immediately.";
+"json_formatter.accessibility.structure_hint" = "Navigate through the JSON structure. Objects and arrays can be expanded or collapsed.";
+"json_formatter.accessibility.node_hint" = "Click or press Space to expand or collapse this node.";
+"json_formatter.accessibility.expand_hint" = "Expand to show child elements.";
+"json_formatter.accessibility.collapse_hint" = "Collapse to hide child elements.";
+
+// MARK: - JSON Formatter Status Messages
+"json_formatter.accessibility.json_parsed" = "JSON parsed successfully";
+"json_formatter.accessibility.parse_error" = "JSON parsing failed";
+"json_formatter.accessibility.empty_input" = "No JSON input provided";
+"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: Clear input • ⌘F: Format JSON • Space: Expand/collapse node";
