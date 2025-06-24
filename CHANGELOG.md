@@ -90,6 +90,16 @@ All notable changes to Ed-Toolkit will be documented in this file.
 - **Accessibility**: Complete VoiceOver support with success/failure announcements
 - **Keyboard Shortcuts**: ⌘⌥C shortcut added to existing ⌘K (clear) and ⌘F (format) shortcuts
 
+### Changed (Today's Session)
+- **Replaced TextEditor Components**: Migrated URLEncoderDecoderView and DiffMatcherView to use PlainTextEditor
+  - **URLEncoderDecoderView**: Replaced both input and output TextEditor components with PlainTextEditor
+    - Input field: Now uses `PlainTextEditor.code()` for consistent monospaced font and smart quote prevention
+    - Output field: Now uses `PlainTextEditor.readOnly()` for read-only display with proper text handling
+  - **DiffMatcherView**: Replaced both original and modified text TextEditor components with PlainTextEditor
+    - Both text areas: Now use `PlainTextEditor.code()` for better technical text editing experience
+  - **Benefits**: Consistent behavior across all text editing in the app, prevents smart quote corruption in URLs and diffs
+  - **Maintained Features**: All existing accessibility, focus management, keyboard shortcuts, and styling preserved
+
 ### Fixed (Today's Session)
 - **Smart Quote Conversion Bug**: Fixed critical issue in JSONParser where Unicode smart quotes inside string values were not properly escaped
   - Issue: Smart quotes `\u{201C}` and `\u{201D}` were being converted to unescaped straight quotes, creating invalid JSON
@@ -104,7 +114,10 @@ All notable changes to Ed-Toolkit will be documented in this file.
   - Converts smart quotes to escaped straight quotes (`\"`) when inside strings
   - Maintains proper JSON structure and validity
   - Supports all Unicode smart quote variants (`\u{201C}`, `\u{201D}`, `\u{2018}`, `\u{2019}`, etc.)
-- **Files Modified**: `Ed-Toolkit/Models/JSONParser.swift` - Enhanced quote normalization logic
+- **Files Modified**: 
+  - `Ed-Toolkit/Models/JSONParser.swift` - Enhanced quote normalization logic
+  - `Ed-Toolkit/Views/URLEncoderDecoderView.swift` - Migrated to PlainTextEditor components
+  - `Ed-Toolkit/Views/DiffMatcherView.swift` - Migrated to PlainTextEditor components
 
 ### Notes
 - All changes maintain backward compatibility with existing JSON files

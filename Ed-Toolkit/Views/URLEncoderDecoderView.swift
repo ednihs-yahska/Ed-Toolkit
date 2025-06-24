@@ -55,13 +55,8 @@ struct URLEncoderDecoderView: View {
                     .font(.headline)
                     .accessibilityLabel(URLEncoderDecoderStrings.Accessibility.inputLabel)
                     .accessibilityIdentifier("URLEncoderDecoder.inputLabel")
-                TextEditor(text: $viewModel.inputText)
-                    .font(.system(.body, design: .monospaced))
+                PlainTextEditor.code(text: $viewModel.inputText)
                     .frame(minHeight: 100)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                    )
                     .focused($focusedField, equals: .input)
                     .urlEncoderInputAccessibility(
                         isEncoding: viewModel.isEncoding,
@@ -85,13 +80,8 @@ struct URLEncoderDecoderView: View {
                     .font(.headline)
                     .accessibilityLabel(URLEncoderDecoderStrings.Accessibility.outputLabel)
                     .accessibilityIdentifier("URLEncoderDecoder.outputLabel")
-                TextEditor(text: .constant(viewModel.outputText))
-                    .font(.system(.body, design: .monospaced))
+                PlainTextEditor.readOnly(text: .constant(viewModel.outputText))
                     .frame(minHeight: 100)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                    )
                     .focused($focusedField, equals: .output)
                     .urlEncoderOutputAccessibility(isEncoding: viewModel.isEncoding, outputText: viewModel.outputText)
             }

@@ -51,14 +51,7 @@ struct DiffMatcherView: View {
                                 .accessibilityLabel(DiffMatcherStrings.originalText)
                                 .accessibilityIdentifier("DiffMatcher.originalTextLabel")
                             
-                            TextEditor(text: $viewModel.originalText)
-                                .font(.system(.body, design: .monospaced))
-                                .padding(4)
-                                .background(Color(NSColor.textBackgroundColor))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                                )
+                            PlainTextEditor.code(text: $viewModel.originalText)
                                 .padding(.horizontal)
                                 .focused($focusedField, equals: .leftText)
                                 .textInputAccessibility(
@@ -75,14 +68,7 @@ struct DiffMatcherView: View {
                                 .accessibilityLabel(DiffMatcherStrings.modifiedText)
                                 .accessibilityIdentifier("DiffMatcher.modifiedTextLabel")
                             
-                            TextEditor(text: $viewModel.modifiedText)
-                                .font(.system(.body, design: .monospaced))
-                                .padding(4)
-                                .background(Color(NSColor.textBackgroundColor))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                                )
+                            PlainTextEditor.code(text: $viewModel.modifiedText)
                                 .padding(.horizontal)
                                 .focused($focusedField, equals: .rightText)
                                 .textInputAccessibility(
