@@ -46,24 +46,23 @@ struct JSONFormatterView: View {
                         .accessibilityLabel(JSONFormatterStrings.inputLabel)
                         .accessibilityIdentifier("JSONFormatter.inputLabel")
                 
-                    TextEditor(text: $viewModel.inputJSON)
-                        .font(.system(.body, design: .monospaced))
-                        .padding(4)
-                        .background(Color(NSColor.textBackgroundColor))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                        )
-                        .padding(.horizontal)
-                        .focused($focusedField, equals: .inputEditor)
-                        .textInputAccessibility(
-                            label: JSONFormatterStrings.Accessibility.inputEditor,
-                            hint: JSONFormatterStrings.Accessibility.inputHint,
-                            identifier: "JSONFormatter.inputEditor"
-                        )
-                        .onChange(of: viewModel.inputJSON) { _, newValue in
-                            viewModel.parseJSON(newValue)
-                        }
+                    PlainTextEditor.code(
+                        text: $viewModel.inputJSON
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
+                    )
+                    .padding(.horizontal)
+                    .focused($focusedField, equals: .inputEditor)
+                    .textInputAccessibility(
+                        label: JSONFormatterStrings.Accessibility.inputEditor,
+                        hint: JSONFormatterStrings.Accessibility.inputHint,
+                        identifier: "JSONFormatter.inputEditor"
+                    )
+                    .onChange(of: viewModel.inputJSON) { _, newValue in
+                        viewModel.parseJSON(newValue)
+                    }
             }
             .frame(minWidth: 300)
             
