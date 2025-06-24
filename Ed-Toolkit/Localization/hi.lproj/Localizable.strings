@@ -118,7 +118,7 @@
 
 // MARK: - JSON Formatter View
 "json_formatter.title" = "JSON फॉर्मेटर";
-"json_formatter.subtitle" = "JSON संरचना का विश्लेषण और दृश्यीकरण करें";
+"json_formatter.subtitle" = "JSON संरचना का विश्लेषण और दृश्यीकरण करें • ⌘⌥C: फॉर्मेटेड JSON कॉपी करें";
 "json_formatter.input_label" = "JSON इनपुट";
 "json_formatter.structure_label" = "JSON संरचना";
 "json_formatter.placeholder_text" = "संरचना देखने के लिए JSON पेस्ट करें";
@@ -142,6 +142,7 @@
 "json_formatter.collapse_all" = "सभी संक्षिप्त करें";
 "json_formatter.clear" = "साफ़ करें";
 "json_formatter.format" = "फॉर्मेट करें";
+"json_formatter.copy" = "JSON कॉपी करें";
 
 // MARK: - JSON Formatter Dynamic Content
 "json_formatter.object_count" = "%d गुणों वाला ऑब्जेक्ट";
@@ -177,4 +178,12 @@
 "json_formatter.accessibility.json_parsed" = "JSON सफलतापूर्वक पार्स किया गया";
 "json_formatter.accessibility.parse_error" = "JSON पार्सिंग असफल";
 "json_formatter.accessibility.empty_input" = "कोई JSON इनपुट प्रदान नहीं किया गया";
-"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: इनपुट साफ़ करें • ⌘F: JSON फॉर्मेट करें • स्पेस: नोड विस्तृत/संक्षिप्त करें";
+"json_formatter.accessibility.copied_to_clipboard" = "फॉर्मेटेड JSON क्लिपबोर्ड में कॉपी किया गया";
+"json_formatter.accessibility.copy_failed" = "JSON को क्लिपबोर्ड में कॉपी करना असफल";
+"json_formatter.accessibility.nothing_to_copy" = "कॉपी करने के लिए कोई वैध JSON नहीं";
+
+// MARK: - JSON Formatter Copy Functionality
+"json_formatter.accessibility.copy_button" = "फॉर्मेटेड JSON कॉपी करें";
+"json_formatter.accessibility.copy_hint" = "उचित रूप से फॉर्मेटेड JSON को क्लिपबोर्ड में कॉपी करें";
+
+"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: इनपुट साफ करें • ⌘F: JSON फॉर्मेट करें • ⌘⌥C: JSON कॉपी करें • स्पेस: नोड विस्तृत/संक्षिप्त करें";

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AppKit
 
 @MainActor
 class JSONFormatterViewModel: ObservableObject {
@@ -85,5 +86,26 @@ class JSONFormatterViewModel: ObservableObject {
     
     func isExpanded(at path: String) -> Bool {
         expandedItems.contains(path)
+    }
+    
+    func copyFormattedJSON() {
+        guard let parsedJSON = parsedJSON else {
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.nothingToCopy
+            return
+        }
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parsedJSON, options: [.prettyPrinted, .sortedKeys])
+            if let formattedString = String(data: jsonData, encoding: .utf8) {
+                let pasteboard = NSPasteboard.general
+                pasteboard.clearContents()
+                pasteboard.setString(formattedString, forType: .string)
+                lastActionAnnouncement = JSONFormatterStrings.Accessibility.copiedToClipboard
+            } else {
+                lastActionAnnouncement = JSONFormatterStrings.Accessibility.copyFailed
+            }
+        } catch {
+            lastActionAnnouncement = JSONFormatterStrings.Accessibility.copyFailed
+        }
     }
 }

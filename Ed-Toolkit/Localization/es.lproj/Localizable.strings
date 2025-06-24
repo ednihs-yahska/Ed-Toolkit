@@ -118,7 +118,7 @@
 
 // MARK: - JSON Formatter View
 "json_formatter.title" = "Formateador JSON";
-"json_formatter.subtitle" = "Analizar y visualizar estructura JSON";
+"json_formatter.subtitle" = "Analizar y visualizar estructura JSON • ⌘⌥C: Copiar JSON formateado";
 "json_formatter.input_label" = "JSON de Entrada";
 "json_formatter.structure_label" = "Estructura JSON";
 "json_formatter.placeholder_text" = "Pegar JSON para ver estructura";
@@ -142,6 +142,7 @@
 "json_formatter.collapse_all" = "Contraer Todo";
 "json_formatter.clear" = "Limpiar";
 "json_formatter.format" = "Formatear";
+"json_formatter.copy" = "Copiar JSON";
 
 // MARK: - JSON Formatter Dynamic Content
 "json_formatter.object_count" = "Objeto con %d propiedades";
@@ -177,4 +178,12 @@
 "json_formatter.accessibility.json_parsed" = "JSON analizado exitosamente";
 "json_formatter.accessibility.parse_error" = "Falló el análisis JSON";
 "json_formatter.accessibility.empty_input" = "No se proporcionó entrada JSON";
-"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: Limpiar entrada • ⌘F: Formatear JSON • Espacio: Expandir/contraer nodo";
+"json_formatter.accessibility.copied_to_clipboard" = "JSON formateado copiado al portapapeles";
+"json_formatter.accessibility.copy_failed" = "Falló al copiar JSON al portapapeles";
+"json_formatter.accessibility.nothing_to_copy" = "No hay JSON válido para copiar";
+
+// MARK: - JSON Formatter Copy Functionality
+"json_formatter.accessibility.copy_button" = "Copiar JSON formateado";
+"json_formatter.accessibility.copy_hint" = "Copiar el JSON correctamente formateado al portapapeles";
+
+"json_formatter.accessibility.keyboard_shortcuts" = "⌘K: Limpiar entrada • ⌘F: Formatear JSON • ⌘⌥C: Copiar JSON • Espacio: Expandir/contraer nodo";

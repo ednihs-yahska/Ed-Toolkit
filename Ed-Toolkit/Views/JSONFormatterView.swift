@@ -68,12 +68,36 @@ struct JSONFormatterView: View {
             
                 // Right side - Outline View
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(JSONFormatterStrings.structureLabel)
-                        .font(.headline)
-                        .padding(.horizontal)
-                        .padding(.top)
-                        .accessibilityLabel(JSONFormatterStrings.structureLabel)
-                        .accessibilityIdentifier("JSONFormatter.structureLabel")
+                    HStack {
+                        Text(JSONFormatterStrings.structureLabel)
+                            .font(.headline)
+                            .accessibilityLabel(JSONFormatterStrings.structureLabel)
+                            .accessibilityIdentifier("JSONFormatter.structureLabel")
+                        
+                        Spacer()
+                        
+                        if viewModel.parsedJSON != nil {
+                            Button(action: {
+                                viewModel.copyFormattedJSON()
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "doc.on.doc")
+                                        .font(.system(size: 12))
+                                    Text(JSONFormatterStrings.copy)
+                                        .font(.caption)
+                                }
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
+                            .actionButtonAccessibility(
+                                label: JSONFormatterStrings.Accessibility.copyButton,
+                                hint: JSONFormatterStrings.Accessibility.copyHint,
+                                identifier: "JSONFormatter.copyButton"
+                            )
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.top)
                 
                     if let parsedJSON = viewModel.parsedJSON {
                         ScrollView {
@@ -160,6 +184,15 @@ struct JSONFormatterView: View {
                     viewModel.formatJSON()
                 }
                 .keyboardShortcut("f", modifiers: .command)
+                .opacity(0)
+                .frame(width: 0, height: 0)
+                .accessibilityHidden(true)
+                
+                // Copy JSON
+                Button("Copy JSON") {
+                    viewModel.copyFormattedJSON()
+                }
+                .keyboardShortcut("c", modifiers: [.command, .option])
                 .opacity(0)
                 .frame(width: 0, height: 0)
                 .accessibilityHidden(true)

@@ -205,6 +205,7 @@ struct JSONFormatterStrings {
     static let collapseAll = "json_formatter.collapse_all".localized
     static let clear = "json_formatter.clear".localized
     static let format = "json_formatter.format".localized
+    static let copy = "json_formatter.copy".localized
     
     // MARK: - Accessibility Labels
     struct Accessibility {
@@ -235,6 +236,13 @@ struct JSONFormatterStrings {
         static let jsonParsed = "json_formatter.accessibility.json_parsed".localized
         static let parseError = "json_formatter.accessibility.parse_error".localized
         static let emptyInput = "json_formatter.accessibility.empty_input".localized
+        static let copiedToClipboard = "json_formatter.accessibility.copied_to_clipboard".localized
+        static let copyFailed = "json_formatter.accessibility.copy_failed".localized
+        static let nothingToCopy = "json_formatter.accessibility.nothing_to_copy".localized
+        
+        // MARK: - Copy Functionality
+        static let copyButton = "json_formatter.accessibility.copy_button".localized
+        static let copyHint = "json_formatter.accessibility.copy_hint".localized
         
         // MARK: - Keyboard Shortcuts
         static let keyboardShortcuts = "json_formatter.accessibility.keyboard_shortcuts".localized

@@ -65,8 +65,34 @@ All notable changes to Ed-Toolkit will be documented in this file.
 - `Ed-Toolkit/Models/JSONParseError.swift` - Custom error types
 - `Ed-ToolkitTests/JSONParserTests.swift` - Comprehensive test suite
 
+### Added (Today's Session Continued)
+- **Copy to Clipboard Functionality**: Added copy button to JSON formatter
+  - Button appears in JSON Structure header when valid JSON is parsed
+  - Copies properly formatted JSON with pretty-printing and sorted keys
+  - Keyboard shortcut ⌘⌥C for quick copying (avoids conflict with standard copy)
+  - Copy shortcut displayed in view subtitle for discoverability
+  - Full accessibility support with descriptive labels and hints
+  - Real-time feedback through announcements (success/failure messages)
+  - Uses NSPasteboard for reliable clipboard integration
+
+### Files Modified (Today's Session Continued)
+- `Ed-Toolkit/Views/JSONFormatterView.swift` - Added copy button and updated keyboard shortcut to ⌘⌥C
+- `Ed-Toolkit/ViewModels/JSONFormatterViewModel.swift` - Added copyFormattedJSON method
+- `Ed-Toolkit/Localization/LocalizationHelper.swift` - Added copy functionality strings
+- `Ed-Toolkit/Localization/en.lproj/Localizable.strings` - Added English copy translations
+- `Ed-Toolkit/Localization/es.lproj/Localizable.strings` - Added Spanish copy translations
+- `Ed-Toolkit/Localization/hi.lproj/Localizable.strings` - Added Hindi copy translations
+
+### Technical Implementation
+- **Clipboard Integration**: Uses NSPasteboard.general for cross-app compatibility
+- **JSON Formatting**: Leverages JSONSerialization with .prettyPrinted and .sortedKeys options
+- **Error Handling**: Graceful fallback with user feedback for copy failures
+- **Accessibility**: Complete VoiceOver support with success/failure announcements
+- **Keyboard Shortcuts**: ⌘⌥C shortcut added to existing ⌘K (clear) and ⌘F (format) shortcuts
+
 ### Notes
 - All changes maintain backward compatibility with existing JSON files
 - The custom parser gracefully handles malformed input with helpful error messages
 - Performance optimizations ensure smooth operation even with large JSON structures
 - Full accessibility support maintained throughout all UI changes
+- Copy functionality only available when valid JSON is successfully parsed
