@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct DiffMatcherView: View {
-    @State private var leftText = ""
-    @State private var rightText = ""
-    @State private var diffResults: [DiffLine] = []
-    @State private var showResults = false
-    @State private var lastActionAnnouncement = ""
+    @StateObject private var viewModel = DiffMatcherViewModel()
     @FocusState private var focusedField: FocusedField?
     
     enum FocusedField: Hashable {
@@ -43,7 +39,7 @@ struct DiffMatcherView: View {
             .padding(.bottom)
             
             // Main content
-            if !showResults {
+            if !viewModel.showingResult {
                 // Input view
                 VStack(spacing: 20) {
                     // Text input areas
@@ -55,7 +51,7 @@ struct DiffMatcherView: View {
                                 .accessibilityLabel(DiffMatcherStrings.originalText)
                                 .accessibilityIdentifier("DiffMatcher.originalTextLabel")
                             
-                            TextEditor(text: $leftText)
+                            TextEditor(text: $viewModel.originalText)
                                 .font(.system(.body, design: .monospaced))
                                 .padding(4)
                                 .background(Color(NSColor.textBackgroundColor))
@@ -79,7 +75,7 @@ struct DiffMatcherView: View {
                                 .accessibilityLabel(DiffMatcherStrings.modifiedText)
                                 .accessibilityIdentifier("DiffMatcher.modifiedTextLabel")
                             
-                            TextEditor(text: $rightText)
+                            TextEditor(text: $viewModel.modifiedText)
                                 .font(.system(.body, design: .monospaced))
                                 .padding(4)
                                 .background(Color(NSColor.textBackgroundColor))
@@ -99,12 +95,12 @@ struct DiffMatcherView: View {
                     .frame(maxHeight: .infinity)
                     
                     // Compare button
-                    Button(action: performDiff) {
+                    Button(action: { viewModel.compareDiffs(); focusedField = .backButton }) {
                         Label(DiffMatcherStrings.compare, systemImage: "arrow.triangle.2.circlepath")
                             .frame(width: 120)
                     }
                     .buttonStyle(.borderedProminent)
-                    .disabled(leftText.isEmpty && rightText.isEmpty)
+                    .disabled(viewModel.originalText.isEmpty && viewModel.modifiedText.isEmpty)
                     .padding(.bottom)
                     .focused($focusedField, equals: .compareButton)
                     .actionButtonAccessibility(
@@ -118,7 +114,7 @@ struct DiffMatcherView: View {
                 // Results view
                 VStack(spacing: 16) {
                     HStack {
-                        Button(action: { goBackToInput() }) {
+                        Button(action: { viewModel.backToInput(); focusedField = .leftText }) {
                             Label(DiffMatcherStrings.backToInput, systemImage: "arrow.left")
                         }
                         .focused($focusedField, equals: .backButton)
@@ -131,7 +127,8 @@ struct DiffMatcherView: View {
                 
                 // Add backspace shortcut for back button (hidden)
                 Button("Back with Backspace") {
-                    goBackToInput()
+                    viewModel.backToInput()
+                    focusedField = .leftText
                 }
                 .keyboardShortcut(.delete, modifiers: [])
                 .opacity(0)
@@ -142,19 +139,19 @@ struct DiffMatcherView: View {
                         
                         VStack(alignment: .trailing, spacing: 4) {
                             HStack(spacing: 16) {
-                                Label(DiffMatcherStrings.additionsCount(diffResults.filter { $0.type == .addition }.count), systemImage: "plus.circle.fill")
+                                Label(DiffMatcherStrings.additionsCount(viewModel.additionCount), systemImage: "plus.circle.fill")
                                     .foregroundColor(.green)
-                                    .accessibilityLabel(DiffMatcherStrings.additionsCount(diffResults.filter { $0.type == .addition }.count))
+                                    .accessibilityLabel(DiffMatcherStrings.additionsCount(viewModel.additionCount))
                                 
-                                Label(DiffMatcherStrings.deletionsCount(diffResults.filter { $0.type == .deletion }.count), systemImage: "minus.circle.fill")
+                                Label(DiffMatcherStrings.deletionsCount(viewModel.deletionCount), systemImage: "minus.circle.fill")
                                     .foregroundColor(.red)
-                                    .accessibilityLabel(DiffMatcherStrings.deletionsCount(diffResults.filter { $0.type == .deletion }.count))
+                                    .accessibilityLabel(DiffMatcherStrings.deletionsCount(viewModel.deletionCount))
                             }
                             .font(.caption)
                             .accessibilityElement(children: .combine)
                             .accessibilityLabel(DiffMatcherStrings.diffSummary(
-                                additions: diffResults.filter { $0.type == .addition }.count,
-                                deletions: diffResults.filter { $0.type == .deletion }.count
+                                additions: viewModel.additionCount,
+                                deletions: viewModel.deletionCount
                             ))
                         }
                     }
@@ -168,7 +165,7 @@ struct DiffMatcherView: View {
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
-                            ForEach(Array(diffResults.enumerated()), id: \.offset) { index, line in
+                            ForEach(Array(viewModel.diffResult.enumerated()), id: \.offset) { index, line in
                                 DiffLineView(line: line, lineNumber: index + 1)
                             }
                         }
@@ -195,17 +192,18 @@ struct DiffMatcherView: View {
             focusedField = .leftText
         }
         .accessibilityAction(.default) {
-            lastActionAnnouncement = keyboardShortcutsHint
+            viewModel.lastActionAnnouncement = keyboardShortcutsHint
         }
         .accessibilityAction(named: "Show keyboard shortcuts") {
-            lastActionAnnouncement = keyboardShortcutsHint
+            viewModel.lastActionAnnouncement = keyboardShortcutsHint
         }
         // Hidden keyboard shortcuts
         .overlay(
             HStack {
                 // Clear both text areas
                 Button("Clear All") {
-                    clearAllText()
+                    viewModel.clearAll()
+                    focusedField = .leftText
                 }
                 .keyboardShortcut("k", modifiers: .command)
                 .opacity(0)
@@ -214,7 +212,7 @@ struct DiffMatcherView: View {
                 
                 // Swap text areas
                 Button("Swap Texts") {
-                    swapTexts()
+                    viewModel.swapTexts()
                 }
                 .keyboardShortcut("s", modifiers: .command)
                 .opacity(0)
@@ -245,147 +243,20 @@ struct DiffMatcherView: View {
         DiffMatcherStrings.Accessibility.keyboardShortcuts
     }
     
-    func performDiff() {
-        guard !leftText.isEmpty || !rightText.isEmpty else {
-            lastActionAnnouncement = DiffMatcherStrings.Accessibility.emptyInput
-            return
-        }
-        
-        let leftLines = leftText.components(separatedBy: .newlines)
-        let rightLines = rightText.components(separatedBy: .newlines)
-        
-        diffResults = computeDiff(leftLines: leftLines, rightLines: rightLines)
-        
-        withAnimation(.easeInOut(duration: 0.3)) {
-            showResults = true
-        }
-        
-        // Announce results to VoiceOver
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let additionCount = diffResults.filter { $0.type == .addition }.count
-            let deletionCount = diffResults.filter { $0.type == .deletion }.count
-            
-            if additionCount == 0 && deletionCount == 0 {
-                lastActionAnnouncement = DiffMatcherStrings.Accessibility.noChanges
-            } else {
-                lastActionAnnouncement = DiffMatcherStrings.diffSummary(additions: additionCount, deletions: deletionCount)
-            }
-        }
-    }
-    
-    func goBackToInput() {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            showResults = false
-        }
-        
-        // Set focus back to left text area
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            focusedField = .leftText
-            lastActionAnnouncement = DiffMatcherStrings.Accessibility.returnedToInput
-        }
-    }
-    
-    func clearAllText() {
-        leftText = ""
-        rightText = ""
-        diffResults = []
-        showResults = false
-        focusedField = .leftText
-        lastActionAnnouncement = DiffMatcherStrings.Accessibility.allTextCleared
-    }
-    
-    func swapTexts() {
-        let temp = leftText
-        leftText = rightText
-        rightText = temp
-        lastActionAnnouncement = DiffMatcherStrings.Accessibility.textsSwapped
-    }
-    
-    func computeDiff(leftLines: [String], rightLines: [String]) -> [DiffLine] {
-        var results: [DiffLine] = []
-        
-        // Simple line-by-line diff algorithm
-        // This is a basic implementation - could be enhanced with LCS algorithm
-        var leftIndex = 0
-        var rightIndex = 0
-        
-        while leftIndex < leftLines.count || rightIndex < rightLines.count {
-            if leftIndex >= leftLines.count {
-                // Remaining lines in right are additions
-                results.append(DiffLine(
-                    content: rightLines[rightIndex],
-                    type: .addition,
-                    leftLineNumber: nil,
-                    rightLineNumber: rightIndex + 1
-                ))
-                rightIndex += 1
-            } else if rightIndex >= rightLines.count {
-                // Remaining lines in left are deletions
-                results.append(DiffLine(
-                    content: leftLines[leftIndex],
-                    type: .deletion,
-                    leftLineNumber: leftIndex + 1,
-                    rightLineNumber: nil
-                ))
-                leftIndex += 1
-            } else if leftLines[leftIndex] == rightLines[rightIndex] {
-                // Lines match
-                results.append(DiffLine(
-                    content: leftLines[leftIndex],
-                    type: .unchanged,
-                    leftLineNumber: leftIndex + 1,
-                    rightLineNumber: rightIndex + 1
-                ))
-                leftIndex += 1
-                rightIndex += 1
-            } else {
-                // Lines differ - check if it's a modification or separate add/delete
-                // For simplicity, treat as delete followed by add
-                results.append(DiffLine(
-                    content: leftLines[leftIndex],
-                    type: .deletion,
-                    leftLineNumber: leftIndex + 1,
-                    rightLineNumber: nil
-                ))
-                results.append(DiffLine(
-                    content: rightLines[rightIndex],
-                    type: .addition,
-                    leftLineNumber: nil,
-                    rightLineNumber: rightIndex + 1
-                ))
-                leftIndex += 1
-                rightIndex += 1
-            }
-        }
-        
-        return results
-    }
 }
 
-struct DiffLine {
-    let content: String
-    let type: DiffType
-    let leftLineNumber: Int?
-    let rightLineNumber: Int?
-}
-
-enum DiffType {
-    case unchanged
-    case addition
-    case deletion
-}
 
 struct DiffLineView: View {
-    let line: DiffLine
+    let line: DiffMatcherViewModel.DiffLine
     let lineNumber: Int
     
     var backgroundColor: Color {
         switch line.type {
         case .unchanged:
             return Color.clear
-        case .addition:
+        case .added:
             return Color.green.opacity(0.2)
-        case .deletion:
+        case .removed:
             return Color.red.opacity(0.2)
         }
     }
@@ -394,9 +265,9 @@ struct DiffLineView: View {
         switch line.type {
         case .unchanged:
             return " "
-        case .addition:
+        case .added:
             return "+"
-        case .deletion:
+        case .removed:
             return "-"
         }
     }
@@ -405,12 +276,12 @@ struct DiffLineView: View {
         HStack(spacing: 0) {
             // Line numbers
             HStack(spacing: 8) {
-                Text(line.leftLineNumber.map { String($0) } ?? "")
+                Text(line.originalLineNumber.map { String($0) } ?? "")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(.secondary)
                     .frame(width: 40, alignment: .trailing)
                 
-                Text(line.rightLineNumber.map { String($0) } ?? "")
+                Text(line.modifiedLineNumber.map { String($0) } ?? "")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(.secondary)
                     .frame(width: 40, alignment: .trailing)
@@ -420,7 +291,7 @@ struct DiffLineView: View {
             // Prefix symbol
             Text(prefixSymbol)
                 .font(.system(.body, design: .monospaced))
-                .foregroundColor(line.type == .addition ? .green : line.type == .deletion ? .red : .primary)
+                .foregroundColor(line.type == .added ? .green : line.type == .removed ? .red : .primary)
                 .padding(.leading, 4)
             
             // Content
@@ -440,9 +311,9 @@ struct DiffLineView: View {
         switch line.type {
         case .unchanged:
             return "Line \(lineNumber): \(line.content.isEmpty ? "Empty line" : line.content)"
-        case .addition:
+        case .added:
             return "Line \(lineNumber): Added: \(line.content.isEmpty ? "Empty line" : line.content)"
-        case .deletion:
+        case .removed:
             return "Line \(lineNumber): Deleted: \(line.content.isEmpty ? "Empty line" : line.content)"
         }
     }

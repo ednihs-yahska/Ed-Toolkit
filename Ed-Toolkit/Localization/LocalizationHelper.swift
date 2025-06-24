@@ -132,6 +132,15 @@ struct DiffMatcherStrings {
         
         // MARK: - Keyboard Shortcuts
         static let keyboardShortcuts = "diff_matcher.accessibility.keyboard_shortcuts".localized
+        
+        // MARK: - Dynamic Labels  
+        static func additionsCountLabel(_ count: Int) -> String {
+            return DiffMatcherStrings.additionsCount(count)
+        }
+        
+        static func deletionsCountLabel(_ count: Int) -> String {
+            return DiffMatcherStrings.deletionsCount(count)
+        }
     }
     
     // MARK: - Dynamic Content

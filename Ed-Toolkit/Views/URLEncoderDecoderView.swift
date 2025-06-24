@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct URLEncoderDecoderView: View {
-    @State private var inputText = ""
-    @State private var outputText = ""
-    @State private var isEncoding = true
-    @State private var lastActionAnnouncement = ""
+    @StateObject private var viewModel = URLEncoderDecoderViewModel()
     @FocusState private var focusedField: FocusedField?
     
     enum FocusedField: Hashable {
@@ -40,7 +37,7 @@ struct URLEncoderDecoderView: View {
             .padding()
             .accessibilityElement(children: .contain)
             
-            Picker(URLEncoderDecoderStrings.modeLabel, selection: $isEncoding) {
+            Picker(URLEncoderDecoderStrings.modeLabel, selection: $viewModel.isEncoding) {
                 Text(URLEncoderDecoderStrings.encode).tag(true)
                 Text(URLEncoderDecoderStrings.decode).tag(false)
             }
@@ -58,7 +55,7 @@ struct URLEncoderDecoderView: View {
                     .font(.headline)
                     .accessibilityLabel(URLEncoderDecoderStrings.Accessibility.inputLabel)
                     .accessibilityIdentifier("URLEncoderDecoder.inputLabel")
-                TextEditor(text: $inputText)
+                TextEditor(text: $viewModel.inputText)
                     .font(.system(.body, design: .monospaced))
                     .frame(minHeight: 100)
                     .overlay(
@@ -67,7 +64,7 @@ struct URLEncoderDecoderView: View {
                     )
                     .focused($focusedField, equals: .input)
                     .urlEncoderInputAccessibility(
-                        isEncoding: isEncoding,
+                        isEncoding: viewModel.isEncoding,
                         pageTitle: URLEncoderDecoderStrings.Accessibility.title,
                         shortcuts: URLEncoderDecoderStrings.shortcutsHelpAccessibility
                     )
@@ -75,20 +72,20 @@ struct URLEncoderDecoderView: View {
             .padding(.horizontal)
             .accessibilityElement(children: .combine)
             
-            Button(action: processURL) {
-                Label(isEncoding ? URLEncoderDecoderStrings.encode : URLEncoderDecoderStrings.decode, systemImage: "arrow.down.circle.fill")
+            Button(action: viewModel.processText) {
+                Label(viewModel.isEncoding ? URLEncoderDecoderStrings.encode : URLEncoderDecoderStrings.decode, systemImage: "arrow.down.circle.fill")
             }
             .buttonStyle(.borderedProminent)
             .focused($focusedField, equals: .processButton)
-            .urlEncoderProcessButtonAccessibility(isEncoding: isEncoding)
-            .keyboardShortcut(isEncoding ? "e" : "d", modifiers: .command)
+            .urlEncoderProcessButtonAccessibility(isEncoding: viewModel.isEncoding)
+            .keyboardShortcut(viewModel.isEncoding ? "e" : "d", modifiers: .command)
             
             VStack(alignment: .leading) {
                 Text(URLEncoderDecoderStrings.outputLabel)
                     .font(.headline)
                     .accessibilityLabel(URLEncoderDecoderStrings.Accessibility.outputLabel)
                     .accessibilityIdentifier("URLEncoderDecoder.outputLabel")
-                TextEditor(text: .constant(outputText))
+                TextEditor(text: .constant(viewModel.outputText))
                     .font(.system(.body, design: .monospaced))
                     .frame(minHeight: 100)
                     .overlay(
@@ -96,7 +93,7 @@ struct URLEncoderDecoderView: View {
                             .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
                     )
                     .focused($focusedField, equals: .output)
-                    .urlEncoderOutputAccessibility(isEncoding: isEncoding, outputText: outputText)
+                    .urlEncoderOutputAccessibility(isEncoding: viewModel.isEncoding, outputText: viewModel.outputText)
             }
             .padding(.horizontal)
             .accessibilityElement(children: .combine)
@@ -106,7 +103,7 @@ struct URLEncoderDecoderView: View {
             // Hidden buttons for keyboard shortcuts
             HStack {
                 Button(URLEncoderDecoderStrings.switchMode) {
-                    toggleMode()
+                    viewModel.switchMode()
                 }
                 .keyboardShortcut("m", modifiers: .command)
                 .opacity(0)
@@ -114,7 +111,7 @@ struct URLEncoderDecoderView: View {
                 .accessibilityHidden(true)
                 
                 Button(URLEncoderDecoderStrings.switchAndProcess) {
-                    switchAndProcess()
+                    viewModel.switchAndProcess()
                 }
                 .keyboardShortcut("r", modifiers: .command)
                 .opacity(0)
@@ -133,57 +130,13 @@ struct URLEncoderDecoderView: View {
         }
         .accessibilityAction(.default) {
             // This can be triggered by VoiceOver users with a gesture
-            lastActionAnnouncement = URLEncoderDecoderStrings.shortcutsHelpAccessibility
+            viewModel.lastActionAnnouncement = URLEncoderDecoderStrings.shortcutsHelpAccessibility
         }
         .accessibilityAction(named: URLEncoderDecoderStrings.Accessibility.showShortcuts) {
-            lastActionAnnouncement = URLEncoderDecoderStrings.Accessibility.shortcutsAvailable
+            viewModel.lastActionAnnouncement = URLEncoderDecoderStrings.Accessibility.shortcutsAvailable
         }
     }
     
-    func toggleMode() {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            isEncoding.toggle()
-        }
-        
-        // Announce mode change to VoiceOver
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            lastActionAnnouncement = isEncoding ? URLEncoderDecoderStrings.Status.switchedToEncode : URLEncoderDecoderStrings.Status.switchedToDecode
-        }
-    }
-    
-    func switchAndProcess() {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            isEncoding.toggle()
-        }
-        
-        // Process with new mode after a brief delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            processURL()
-        }
-    }
-    
-    func processURL() {
-        if isEncoding {
-            outputText = inputText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        } else {
-            outputText = inputText.removingPercentEncoding ?? ""
-        }
-        
-        // Update state for VoiceOver announcement
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let resultLength = outputText.count
-            
-            if outputText.isEmpty && !inputText.isEmpty {
-                lastActionAnnouncement = isEncoding ? URLEncoderDecoderStrings.Status.encodingFailed : URLEncoderDecoderStrings.Status.decodingFailed
-            } else if outputText.isEmpty {
-                lastActionAnnouncement = URLEncoderDecoderStrings.Status.noInput
-            } else {
-                lastActionAnnouncement = isEncoding ? 
-                    URLEncoderDecoderStrings.Status.encodedSuccess(characterCount: resultLength) :
-                    URLEncoderDecoderStrings.Status.decodedSuccess(characterCount: resultLength)
-            }
-        }
-    }
 }
 
 #Preview {

@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct JSONFormatterView: View {
-    @State private var inputJSON = ""
-    @State private var parsedJSON: Any?
-    @State private var errorMessage = ""
-    @State private var lastActionAnnouncement = ""
+    @StateObject private var viewModel = JSONFormatterViewModel()
     @FocusState private var focusedField: FocusedField?
     
     enum FocusedField: Hashable {
@@ -49,7 +46,7 @@ struct JSONFormatterView: View {
                         .accessibilityLabel(JSONFormatterStrings.inputLabel)
                         .accessibilityIdentifier("JSONFormatter.inputLabel")
                 
-                    TextEditor(text: $inputJSON)
+                    TextEditor(text: $viewModel.inputJSON)
                         .font(.system(.body, design: .monospaced))
                         .padding(4)
                         .background(Color(NSColor.textBackgroundColor))
@@ -64,8 +61,8 @@ struct JSONFormatterView: View {
                             hint: JSONFormatterStrings.Accessibility.inputHint,
                             identifier: "JSONFormatter.inputEditor"
                         )
-                        .onChange(of: inputJSON) { _, newValue in
-                            parseJSON(newValue)
+                        .onChange(of: viewModel.inputJSON) { _, newValue in
+                            viewModel.parseJSON(newValue)
                         }
             }
             .frame(minWidth: 300)
@@ -79,9 +76,9 @@ struct JSONFormatterView: View {
                         .accessibilityLabel(JSONFormatterStrings.structureLabel)
                         .accessibilityIdentifier("JSONFormatter.structureLabel")
                 
-                    if let parsedJSON = parsedJSON {
+                    if let parsedJSON = viewModel.parsedJSON {
                         ScrollView {
-                            JSONOutlineView(json: parsedJSON)
+                            JSONOutlineView(json: parsedJSON, expandedItems: $viewModel.expandedItems)
                                 .padding()
                         }
                         .background(Color(NSColor.textBackgroundColor))
@@ -92,12 +89,12 @@ struct JSONFormatterView: View {
                         .accessibilityLabel(JSONFormatterStrings.Accessibility.structureView)
                         .accessibilityHint(JSONFormatterStrings.Accessibility.structureHint)
                         .accessibilityIdentifier("JSONFormatter.structureView")
-                    } else if !errorMessage.isEmpty {
+                    } else if !viewModel.errorMessage.isEmpty {
                         VStack {
                             Image(systemName: "exclamationmark.triangle")
                                 .font(.largeTitle)
                                 .foregroundColor(.orange)
-                            Text(errorMessage)
+                            Text(viewModel.errorMessage)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
                                 .padding()
@@ -108,7 +105,7 @@ struct JSONFormatterView: View {
                         .padding(.horizontal)
                         .accessibilityElement(children: .combine)
                         .accessibilityLabel(JSONFormatterStrings.Accessibility.errorView)
-                        .accessibilityValue(errorMessage)
+                        .accessibilityValue(viewModel.errorMessage)
                         .accessibilityIdentifier("JSONFormatter.errorView")
                     } else {
                         VStack {
@@ -141,17 +138,18 @@ struct JSONFormatterView: View {
             focusedField = .inputEditor
         }
         .accessibilityAction(.default) {
-            lastActionAnnouncement = keyboardShortcutsHint
+            viewModel.lastActionAnnouncement = keyboardShortcutsHint
         }
         .accessibilityAction(named: "Show keyboard shortcuts") {
-            lastActionAnnouncement = keyboardShortcutsHint
+            viewModel.lastActionAnnouncement = keyboardShortcutsHint
         }
         // Hidden keyboard shortcuts
         .overlay(
             HStack {
                 // Clear input
                 Button("Clear Input") {
-                    clearInput()
+                    viewModel.clearInput()
+                    focusedField = .inputEditor
                 }
                 .keyboardShortcut("k", modifiers: .command)
                 .opacity(0)
@@ -160,7 +158,7 @@ struct JSONFormatterView: View {
                 
                 // Format JSON
                 Button("Format JSON") {
-                    formatJSON()
+                    viewModel.formatJSON()
                 }
                 .keyboardShortcut("f", modifiers: .command)
                 .opacity(0)
@@ -174,59 +172,11 @@ struct JSONFormatterView: View {
         JSONFormatterStrings.Accessibility.keyboardShortcuts
     }
     
-    func parseJSON(_ jsonString: String) {
-        errorMessage = ""
-        parsedJSON = nil
-        
-        guard !jsonString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return
-        }
-        
-        guard let data = jsonString.data(using: .utf8) else {
-            errorMessage = JSONFormatterStrings.invalidInput
-            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
-            return
-        }
-        
-        do {
-            parsedJSON = try JSONSerialization.jsonObject(with: data, options: [])
-            lastActionAnnouncement = JSONFormatterStrings.Accessibility.jsonParsed
-        } catch {
-            errorMessage = "\(JSONFormatterStrings.invalidJSONPrefix) \(error.localizedDescription)"
-            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
-        }
-    }
-    
-    func clearInput() {
-        inputJSON = ""
-        parsedJSON = nil
-        errorMessage = ""
-        focusedField = .inputEditor
-        lastActionAnnouncement = "Input cleared"
-    }
-    
-    func formatJSON() {
-        guard !inputJSON.isEmpty else {
-            lastActionAnnouncement = JSONFormatterStrings.Accessibility.emptyInput
-            return
-        }
-        
-        guard let data = inputJSON.data(using: .utf8),
-              let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-              let formattedData = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]),
-              let formattedString = String(data: formattedData, encoding: .utf8) else {
-            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
-            return
-        }
-        
-        inputJSON = formattedString
-        lastActionAnnouncement = "JSON formatted"
-    }
 }
 
 struct JSONOutlineView: View {
     let json: Any
-    @State private var expandedItems: Set<String> = []
+    @Binding var expandedItems: Set<String>
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

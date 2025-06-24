@@ -174,9 +174,9 @@ struct URLEncodingTests {
 
 struct DiffAlgorithmTests {
     
-    // Helper function that mimics the diff algorithm from DiffMatcherView
-    func computeDiff(leftLines: [String], rightLines: [String]) -> [(content: String, type: DiffType, leftLine: Int?, rightLine: Int?)] {
-        var results: [(content: String, type: DiffType, leftLine: Int?, rightLine: Int?)] = []
+    // Helper function that mimics the diff algorithm from DiffMatcherViewModel
+    func computeDiff(leftLines: [String], rightLines: [String]) -> [(content: String, type: DiffMatcherViewModel.DiffType, leftLine: Int?, rightLine: Int?)] {
+        var results: [(content: String, type: DiffMatcherViewModel.DiffType, leftLine: Int?, rightLine: Int?)] = []
         
         var leftIndex = 0
         var rightIndex = 0
@@ -185,7 +185,7 @@ struct DiffAlgorithmTests {
             if leftIndex >= leftLines.count {
                 results.append((
                     content: rightLines[rightIndex],
-                    type: .addition,
+                    type: .added,
                     leftLine: nil,
                     rightLine: rightIndex + 1
                 ))
@@ -193,7 +193,7 @@ struct DiffAlgorithmTests {
             } else if rightIndex >= rightLines.count {
                 results.append((
                     content: leftLines[leftIndex],
-                    type: .deletion,
+                    type: .removed,
                     leftLine: leftIndex + 1,
                     rightLine: nil
                 ))
@@ -210,13 +210,13 @@ struct DiffAlgorithmTests {
             } else {
                 results.append((
                     content: leftLines[leftIndex],
-                    type: .deletion,
+                    type: .removed,
                     leftLine: leftIndex + 1,
                     rightLine: nil
                 ))
                 results.append((
                     content: rightLines[rightIndex],
-                    type: .addition,
+                    type: .added,
                     leftLine: nil,
                     rightLine: rightIndex + 1
                 ))
@@ -238,7 +238,7 @@ struct DiffAlgorithmTests {
         #expect(results.count == 3)
         #expect(results[0].type == .unchanged)
         #expect(results[1].type == .unchanged)
-        #expect(results[2].type == .addition)
+        #expect(results[2].type == .added)
         #expect(results[2].content == "Line 3")
     }
     
@@ -255,11 +255,11 @@ struct DiffAlgorithmTests {
         #expect(results.count == 4)
         #expect(results[0].type == .unchanged)
         #expect(results[0].content == "Line 1")
-        #expect(results[1].type == .deletion)
+        #expect(results[1].type == .removed)
         #expect(results[1].content == "Line 2")
-        #expect(results[2].type == .addition)
+        #expect(results[2].type == .added)
         #expect(results[2].content == "Line 3")
-        #expect(results[3].type == .deletion)
+        #expect(results[3].type == .removed)
         #expect(results[3].content == "Line 3")
     }
     
@@ -271,9 +271,9 @@ struct DiffAlgorithmTests {
         let results = computeDiff(leftLines: leftLines, rightLines: rightLines)
         
         #expect(results.count == 2)
-        #expect(results[0].type == .deletion)
+        #expect(results[0].type == .removed)
         #expect(results[0].content == "Hello World")
-        #expect(results[1].type == .addition)
+        #expect(results[1].type == .added)
         #expect(results[1].content == "Hello Universe")
     }
     
@@ -301,7 +301,7 @@ struct DiffAlgorithmTests {
         let results = computeDiff(leftLines: lines, rightLines: [])
         
         #expect(results.count == 2)
-        #expect(results.allSatisfy { $0.type == .deletion })
+        #expect(results.allSatisfy { $0.type == .removed })
     }
     
     @Test("Verify line numbers")
@@ -316,12 +316,12 @@ struct DiffAlgorithmTests {
         #expect(results[0].rightLine == 1)
         
         // B deleted from position 2
-        #expect(results[1].type == .deletion)
+        #expect(results[1].type == .removed)
         #expect(results[1].leftLine == 2)
         #expect(results[1].rightLine == nil)
         
         // D added at position 2
-        #expect(results[2].type == .addition)
+        #expect(results[2].type == .added)
         #expect(results[2].leftLine == nil)
         #expect(results[2].rightLine == 2)
     }
@@ -348,11 +348,19 @@ struct ToolEnumTests {
         #expect(Tool.diffMatcher.icon == "arrow.triangle.branch")
     }
     
+    @Test("Tool raw values")
+    func testToolRawValues() {
+        #expect(Tool.urlEncoderDecoder.rawValue == "url_encoder_decoder")
+        #expect(Tool.jsonFormatter.rawValue == "json_formatter")
+        #expect(Tool.diffMatcher.rawValue == "diff_matcher")
+    }
+    
     @Test("Tool display names")
     func testToolDisplayNames() {
-        #expect(Tool.urlEncoderDecoder.rawValue == "URL Encoder/Decoder")
-        #expect(Tool.jsonFormatter.rawValue == "JSON Formatter")
-        #expect(Tool.diffMatcher.rawValue == "Diff Matcher")
+        // Note: These use localized strings, so we check that displayName is not empty
+        #expect(!Tool.urlEncoderDecoder.displayName.isEmpty)
+        #expect(!Tool.jsonFormatter.displayName.isEmpty)
+        #expect(!Tool.diffMatcher.displayName.isEmpty)
     }
 }
 
@@ -391,5 +399,275 @@ struct JSONNodeTests {
         
         #expect(arrayFormat == "[3]")
         #expect(dictFormat == "{3}")
+    }
+}
+
+// MARK: - ViewModel Tests
+
+@MainActor
+struct JSONFormatterViewModelTests {
+    
+    @Test("Parse valid JSON")
+    func testParseValidJSON() async {
+        let viewModel = JSONFormatterViewModel()
+        let jsonString = """
+        {
+            "name": "Test",
+            "value": 42
+        }
+        """
+        
+        viewModel.parseJSON(jsonString)
+        
+        #expect(viewModel.parsedJSON != nil)
+        #expect(viewModel.errorMessage.isEmpty)
+        #expect(viewModel.lastActionAnnouncement.contains("parsed"))
+    }
+    
+    @Test("Handle invalid JSON")
+    func testParseInvalidJSON() async {
+        let viewModel = JSONFormatterViewModel()
+        let invalidJSON = "{ invalid json }"
+        
+        viewModel.parseJSON(invalidJSON)
+        
+        #expect(viewModel.parsedJSON == nil)
+        #expect(!viewModel.errorMessage.isEmpty)
+        #expect(viewModel.lastActionAnnouncement.contains("parsing failed") || viewModel.lastActionAnnouncement.contains("error"))
+    }
+    
+    @Test("Clear input")
+    func testClearInput() async {
+        let viewModel = JSONFormatterViewModel()
+        viewModel.inputJSON = "test"
+        viewModel.parsedJSON = ["key": "value"]
+        viewModel.errorMessage = "error"
+        
+        viewModel.clearInput()
+        
+        #expect(viewModel.inputJSON.isEmpty)
+        #expect(viewModel.parsedJSON == nil)
+        #expect(viewModel.errorMessage.isEmpty)
+        #expect(viewModel.lastActionAnnouncement == "Input cleared")
+    }
+    
+    @Test("Format valid JSON")
+    func testFormatJSON() async {
+        let viewModel = JSONFormatterViewModel()
+        viewModel.inputJSON = """
+        {"name":"Test","value":42}
+        """
+        
+        viewModel.formatJSON()
+        
+        #expect(viewModel.inputJSON.contains("\n"))
+        #expect(viewModel.lastActionAnnouncement == "JSON formatted")
+    }
+    
+    @Test("Handle empty input for formatting")
+    func testFormatEmptyJSON() async {
+        let viewModel = JSONFormatterViewModel()
+        viewModel.inputJSON = ""
+        
+        viewModel.formatJSON()
+        
+        #expect(viewModel.inputJSON.isEmpty)
+        #expect(viewModel.lastActionAnnouncement.contains("No JSON") || viewModel.lastActionAnnouncement.contains("empty"))
+    }
+    
+    @Test("Toggle expanded items")
+    func testToggleExpanded() async {
+        let viewModel = JSONFormatterViewModel()
+        let path = "test.path"
+        
+        #expect(!viewModel.isExpanded(at: path))
+        
+        viewModel.toggleExpanded(at: path)
+        #expect(viewModel.isExpanded(at: path))
+        
+        viewModel.toggleExpanded(at: path)
+        #expect(!viewModel.isExpanded(at: path))
+    }
+}
+
+@MainActor
+struct URLEncoderDecoderViewModelTests {
+    
+    @Test("Encode text")
+    func testEncodeText() async {
+        let viewModel = URLEncoderDecoderViewModel()
+        viewModel.inputText = "Hello World!"
+        viewModel.isEncoding = true
+        
+        viewModel.processText()
+        
+        #expect(viewModel.outputText == "Hello%20World!")
+        #expect(viewModel.lastActionAnnouncement.contains("encoded"))
+    }
+    
+    @Test("Decode text")
+    func testDecodeText() async {
+        let viewModel = URLEncoderDecoderViewModel()
+        viewModel.inputText = "Hello%20World!"
+        viewModel.isEncoding = false
+        
+        viewModel.processText()
+        
+        #expect(viewModel.outputText == "Hello World!")
+        #expect(viewModel.lastActionAnnouncement.contains("decoded"))
+    }
+    
+    @Test("Handle empty input")
+    func testEmptyInput() async {
+        let viewModel = URLEncoderDecoderViewModel()
+        viewModel.inputText = ""
+        
+        viewModel.processText()
+        
+        #expect(viewModel.outputText.isEmpty)
+        #expect(viewModel.lastActionAnnouncement.contains("No input"))
+    }
+    
+    @Test("Switch mode")
+    func testSwitchMode() async {
+        let viewModel = URLEncoderDecoderViewModel()
+        let initialMode = viewModel.isEncoding
+        
+        viewModel.switchMode()
+        
+        #expect(viewModel.isEncoding != initialMode)
+        #expect(viewModel.outputText.isEmpty)
+        #expect(!viewModel.lastActionAnnouncement.isEmpty)
+    }
+    
+    @Test("Switch and process")
+    func testSwitchAndProcess() async {
+        let viewModel = URLEncoderDecoderViewModel()
+        viewModel.inputText = "Hello World!"
+        viewModel.isEncoding = true
+        
+        viewModel.switchAndProcess()
+        
+        #expect(!viewModel.isEncoding)
+        #expect(viewModel.outputText == "Hello World!")
+    }
+    
+    @Test("Handle encoding failure")
+    func testEncodingFailure() async {
+        let viewModel = URLEncoderDecoderViewModel()
+        viewModel.inputText = "test"
+        viewModel.isEncoding = true
+        
+        // Simulate encoding that could fail
+        viewModel.processText()
+        
+        // Since our current implementation shouldn't fail for normal strings,
+        // we test that it succeeds
+        #expect(!viewModel.outputText.isEmpty)
+    }
+}
+
+@MainActor
+struct DiffMatcherViewModelTests {
+    
+    @Test("Compare different texts")
+    func testCompareDifferentTexts() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.originalText = "Line 1\nLine 2"
+        viewModel.modifiedText = "Line 1\nLine 3"
+        
+        viewModel.compareDiffs()
+        
+        #expect(viewModel.showingResult)
+        #expect(!viewModel.diffResult.isEmpty)
+        #expect(viewModel.additionCount > 0)
+        #expect(viewModel.deletionCount > 0)
+        #expect(viewModel.lastActionAnnouncement.contains("Found") || viewModel.lastActionAnnouncement.contains("comparison"))
+    }
+    
+    @Test("Handle empty inputs")
+    func testEmptyInputs() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.originalText = ""
+        viewModel.modifiedText = ""
+        
+        viewModel.compareDiffs()
+        
+        #expect(!viewModel.showingResult)
+        #expect(viewModel.lastActionAnnouncement.contains("Please enter") || viewModel.lastActionAnnouncement.contains("empty"))
+    }
+    
+    @Test("Swap texts")
+    func testSwapTexts() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.originalText = "Original"
+        viewModel.modifiedText = "Modified"
+        
+        viewModel.swapTexts()
+        
+        #expect(viewModel.originalText == "Modified")
+        #expect(viewModel.modifiedText == "Original")
+        #expect(viewModel.lastActionAnnouncement.contains("swapped"))
+    }
+    
+    @Test("Clear all")
+    func testClearAll() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.originalText = "test"
+        viewModel.modifiedText = "test"
+        viewModel.showingResult = true
+        viewModel.diffResult = [DiffMatcherViewModel.DiffLine(
+            originalLineNumber: 1,
+            modifiedLineNumber: 1,
+            content: "test",
+            type: .unchanged
+        )]
+        
+        viewModel.clearAll()
+        
+        #expect(viewModel.originalText.isEmpty)
+        #expect(viewModel.modifiedText.isEmpty)
+        #expect(!viewModel.showingResult)
+        #expect(viewModel.diffResult.isEmpty)
+        #expect(viewModel.lastActionAnnouncement.contains("cleared"))
+    }
+    
+    @Test("Back to input")
+    func testBackToInput() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.showingResult = true
+        
+        viewModel.backToInput()
+        
+        #expect(!viewModel.showingResult)
+        #expect(viewModel.lastActionAnnouncement.contains("input"))
+    }
+    
+    @Test("Count additions and deletions")
+    func testCountAdditionsAndDeletions() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.diffResult = [
+            DiffMatcherViewModel.DiffLine(originalLineNumber: 1, modifiedLineNumber: 1, content: "unchanged", type: .unchanged),
+            DiffMatcherViewModel.DiffLine(originalLineNumber: 2, modifiedLineNumber: nil, content: "removed", type: .removed),
+            DiffMatcherViewModel.DiffLine(originalLineNumber: nil, modifiedLineNumber: 2, content: "added", type: .added)
+        ]
+        
+        #expect(viewModel.additionCount == 1)
+        #expect(viewModel.deletionCount == 1)
+    }
+    
+    @Test("Compute diff algorithm")
+    func testComputeDiff() async {
+        let viewModel = DiffMatcherViewModel()
+        viewModel.originalText = "A\nB\nC"
+        viewModel.modifiedText = "A\nD\nC"
+        
+        viewModel.compareDiffs()
+        
+        #expect(viewModel.diffResult.count == 4)
+        #expect(viewModel.diffResult[0].type == .unchanged) // A
+        #expect(viewModel.diffResult[1].type == .removed)   // B
+        #expect(viewModel.diffResult[2].type == .added)     // D
+        #expect(viewModel.diffResult[3].type == .unchanged) // C
     }
 }
