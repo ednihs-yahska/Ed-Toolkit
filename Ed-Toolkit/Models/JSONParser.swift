@@ -51,26 +51,8 @@ class JSONParser {
     
     /// Convert all types of quotes to straight double quotes
     private func normalizeQuotes(_ jsonString: String) -> String {
-        var normalized = jsonString
-        
-        // Map of quote characters to replace with straight double quotes
-        let quoteMapping: [String: String] = [
-            "\u{201C}": "\"",  // Left double quotation mark
-            "\u{201D}": "\"",  // Right double quotation mark
-            "\u{2018}": "\"",  // Left single quotation mark
-            "\u{2019}": "\"",  // Right single quotation mark
-            "\u{201A}": "\"",  // Single low-9 quotation mark
-            "\u{201E}": "\"",  // Double low-9 quotation mark
-            "\u{2039}": "\"",  // Single left-pointing angle quotation mark
-            "\u{203A}": "\"",  // Single right-pointing angle quotation mark
-            "\u{00AB}": "\"",  // Left-pointing double angle quotation mark
-            "\u{00BB}": "\"",  // Right-pointing double angle quotation mark
-        ]
-        
-        // Replace smart quotes with straight quotes
-        for (smart, straight) in quoteMapping {
-            normalized = normalized.replacingOccurrences(of: smart, with: straight)
-        }
+        // First, normalize smart quotes that appear inside string values
+        var normalized = normalizeSmartQuotesInStrings(jsonString)
         
         // Handle single quotes around keys and values
         normalized = normalizeSingleQuotes(normalized)
@@ -79,6 +61,46 @@ class JSONParser {
         normalized = normalizeUnquotedKeys(normalized)
         
         return normalized
+    }
+    
+    /// Convert smart quotes inside string values to escaped straight quotes
+    private func normalizeSmartQuotesInStrings(_ input: String) -> String {
+        var result = ""
+        var i = input.startIndex
+        var inString = false
+        
+        // Map of smart quote characters to escaped straight quotes
+        let smartQuoteMapping: [Character: String] = [
+            "\u{201C}": "\\\"",  // Left double quotation mark
+            "\u{201D}": "\\\"",  // Right double quotation mark
+            "\u{2018}": "\\\"",  // Left single quotation mark
+            "\u{2019}": "\\\"",  // Right single quotation mark
+            "\u{201A}": "\\\"",  // Single low-9 quotation mark
+            "\u{201E}": "\\\"",  // Double low-9 quotation mark
+            "\u{2039}": "\\\"",  // Single left-pointing angle quotation mark
+            "\u{203A}": "\\\"",  // Single right-pointing angle quotation mark
+            "\u{00AB}": "\\\"",  // Left-pointing double angle quotation mark
+            "\u{00BB}": "\\\"",  // Right-pointing double angle quotation mark
+        ]
+        
+        while i < input.endIndex {
+            let char = input[i]
+            
+            if char == "\"" && (i == input.startIndex || input[input.index(before: i)] != "\\") {
+                // Toggle string state when we encounter unescaped quote
+                inString.toggle()
+                result.append(char)
+            } else if inString, let escaped = smartQuoteMapping[char] {
+                // Replace smart quote with escaped straight quote inside strings
+                result.append(contentsOf: escaped)
+            } else {
+                result.append(char)
+            }
+            
+            i = input.index(after: i)
+        }
+        
+        return result
     }
     
     /// Convert single quotes to double quotes while preserving escaped quotes

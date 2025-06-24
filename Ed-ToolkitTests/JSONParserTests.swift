@@ -53,7 +53,7 @@ struct JSONParserTests {
         let json = """
         {
             "name": "John",
-            "message": "Hello "world""
+            "message": "Hello \u{201C}world\u{201D}"
         }
         """
         
