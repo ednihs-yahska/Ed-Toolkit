@@ -24,18 +24,29 @@ class JSONFormatterViewModel: ObservableObject {
             return
         }
         
-        guard let data = jsonString.data(using: .utf8) else {
-            errorMessage = JSONFormatterStrings.invalidInput
-            lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
-            return
-        }
+        let parser = JSONParser()
         
         do {
-            parsedJSON = try JSONSerialization.jsonObject(with: data, options: [])
+            parsedJSON = try parser.parse(jsonString)
             lastActionAnnouncement = JSONFormatterStrings.Accessibility.jsonParsed
-        } catch {
-            errorMessage = "\(JSONFormatterStrings.invalidJSONPrefix) \(error.localizedDescription)"
+        } catch let parseError as JSONParseError {
+            errorMessage = "\(JSONFormatterStrings.invalidJSONPrefix) \(parseError.localizedDescription)"
             lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
+        } catch {
+            // Fallback to standard JSONSerialization for edge cases
+            do {
+                guard let data = jsonString.data(using: .utf8) else {
+                    errorMessage = JSONFormatterStrings.invalidInput
+                    lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
+                    return
+                }
+                
+                parsedJSON = try JSONSerialization.jsonObject(with: data, options: [])
+                lastActionAnnouncement = JSONFormatterStrings.Accessibility.jsonParsed
+            } catch {
+                errorMessage = "\(JSONFormatterStrings.invalidJSONPrefix) \(error.localizedDescription)"
+                lastActionAnnouncement = JSONFormatterStrings.Accessibility.parseError
+            }
         }
     }
     
